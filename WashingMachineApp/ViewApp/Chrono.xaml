@@ -1,0 +1,54 @@
+﻿<Window x:Class="WashingMachine.Chrono"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:WashingMachine" xmlns:b1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" xmlns:b2="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:b3="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        mc:Ignorable="d"
+        Title="Chrono" Height="450" Width="500">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="White" Offset="1"/>
+            <GradientStop Color="#FFA8DADC"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>        
+        <!-- Home Header -->
+        <TextBlock Text="CHRONO" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,70,0,0" 
+                   FontSize="20" 
+                   FontWeight="Bold" />
+
+        <StackPanel Margin="10">
+            <ComboBox x:Name="CitySelectComboBox" 
+               SelectedValuePath="Content" 
+               Width="200" 
+               Height="30"
+               Foreground="#1d3557"
+               Padding="5,5,0,5" 
+               Margin="0,200,0,0" 
+               Text="Select Item..." 
+               Background="White">
+                <!-- Add cities -->
+                <ComboBoxItem Content="30 minutes" />
+                <ComboBoxItem Content="1 hour" />
+                <ComboBoxItem Content="1 hour 30" />
+                <ComboBoxItem Content="2 hours" />
+            </ComboBox>
+
+            <Button Content="Return to Home" 
+                    Background="#FFe63946" 
+                    Foreground="White" 
+                    FontSize="16" 
+                    FontWeight="Bold" 
+                    Padding="5,5"
+                    HorizontalAlignment="Center"
+                    Margin="0,50,0,10" 
+                    Click="ReturnToHome_Click" />    
+
+        </StackPanel>
+    </Grid>
+</Window>

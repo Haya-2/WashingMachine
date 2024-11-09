@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WashingMachine.ViewModels;
 
 namespace WashingMachine
 {
@@ -20,6 +23,13 @@ namespace WashingMachine
         {
             InitializeComponent();
             DataContext = App.LaundryViewModel;
+        }
+        private void Button_Chrono(object sender, RoutedEventArgs e)
+        {
+            // Open the Key window
+            Chrono w = new Chrono();
+            w.Show();
+            this.Close(); // Close the Manager window
         }
     }
 }

@@ -12,50 +12,46 @@
             <GradientStop Color="#FFA8DADC"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="149*"/>
-            <ColumnDefinition Width="56*"/>
-            <ColumnDefinition Width="295*"/>
-        </Grid.ColumnDefinitions>
-        <!-- Chrono Label -->
-        <TextBlock Text="CHRONO" 
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Top" 
-                   Margin="1,10,0,0" 
-                   FontSize="18" 
-                   FontWeight="Bold" 
-                   Background="Plum"
-                   Padding="5,2" Grid.Column="2"/>
+    <Grid>        
+        <Button Content="Set Chrono" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Background="#81c3d7"
+                FontWeight="Bold"  
+                Foreground="#FF0F2038" 
+                Margin="0,10,0,5" 
+                Width="200"
+                Height="50" 
+                Click="Button_Chrono" />
 
         <!-- Home Header -->
         <TextBlock Text="HOME" 
-                   HorizontalAlignment="Left" 
+                   HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
-                   Margin="15,50,0,0" 
+                   Margin="0,70,0,0" 
                    FontSize="20" 
-                   FontWeight="Bold" Grid.Column="2"/>
+                   FontWeight="Bold" />
 
         <!-- Queue Information -->
         <TextBlock Text="{Binding PeopleInQueue, StringFormat='There are {0} people before you in the queue'}" 
-                   HorizontalAlignment="Left" 
+                   HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
-                   Margin="45,120,0,0" 
-                   FontSize="14" Grid.Column="2"/>
+                   Margin="0,120,0,0" 
+                   FontSize="14" />
 
         <TextBlock Text="{Binding MachineWorking, StringFormat='There are {0} operating machine'}" 
-                   HorizontalAlignment="Left" 
+                   HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
-                   Margin="45,150,0,0" 
-                   FontSize="14" Grid.Column="2"/>
+                   Margin="0,150,0,0" 
+                   FontSize="14" />
 
         <!-- Queue Button -->
         <Button Content="Get in queue" 
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
-                Margin="26,200,0,0" 
+                Margin="0,200,0,0" 
                 Width="150" 
                 Height="30" 
-                Background="LightGray" Grid.ColumnSpan="2" Grid.Column="1"/>
+                Background="LightGray" />
     </Grid>
 </Window>
