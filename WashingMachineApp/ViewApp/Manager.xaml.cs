@@ -31,5 +31,10 @@ namespace WashingMachine
             keyWindow.Show();
             this.Close(); // Close the Manager window
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

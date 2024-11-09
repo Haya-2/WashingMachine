@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WashingMachine"
         mc:Ignorable="d"
-        Title="Manager" Height="400" Width="600" Background="#f1faee">
+        Title="Manager" Height="400" Width="500" Background="White">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -47,10 +47,10 @@
                     VerticalAlignment="Center" 
                     Margin="0,0,0,0"
                     Width="200">
-            <Button Content="See resident (utilisation)" Background="LightBlue" Margin="0,5,0,5" Height="30" />
-            <Button Content="Giving Key" Background="LightGreen" Margin="0,5,0,5" Height="30" Click="KeyButton_Click" />
-            <Button Content="Declare state Machines" Background="MediumPurple" Margin="0,5,0,5" Height="30" />
-            <Button Content="Daily report" Background="LightCyan" Margin="0,5,0,5" Height="30" />
+            <Button Content="See resident (utilisation)" Background="#81c3d7" Foreground="#FF0F2038" Margin="0,5,0,5" Height="30" Click="Button_Click" />
+            <Button Content="Giving Key" Background="#cbf3f0" Foreground="#1d3557" Margin="0,5,0,5" Height="30" Click="KeyButton_Click" />
+            <Button Content="Declare state Machines" Background="#81c3d7" Foreground="#FF0F2038" Margin="0,5,0,5" Height="30" />
+            <Button Content="Daily report" Background="#cbf3f0" Foreground="#1d3557" Margin="0,5,0,5" Height="30" />
         </StackPanel>
     </Grid>
 </Window>

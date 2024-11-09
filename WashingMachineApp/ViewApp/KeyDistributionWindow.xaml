@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:WashingMachine.ViewModels"
         mc:Ignorable="d"
         Title="KeyDistributionWindow" Height="450" Width="500">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="White" Offset="1"/>
+            <GradientStop Color="#FFA8DADC"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <StackPanel Margin="10">
 
         <!-- Display number of available machines -->
@@ -31,13 +37,13 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <!-- Give Key Button -->
-                                    <Button Content="Give Key" Background="Green" Foreground="White"
+                                    <Button Content="Give Key" Background="#ffa7c957" Foreground="White"
                                             Command="{Binding DataContext.GiveKeyCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                             CommandParameter="{Binding}" 
                                             Margin="0,0,10,0"/>
 
                                     <!-- Kick Out Button -->
-                                    <Button Content="Kick Out" Background="Red" Foreground="White"
+                                    <Button Content="Kick Out" Background="#ffe63946" Foreground="White"
                                             Command="{Binding DataContext.KickOutCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                             CommandParameter="{Binding}" />
                                 </StackPanel>
@@ -50,7 +56,7 @@
 
         <!-- Return to Manager Button -->
         <Button Content="Return to Manager" 
-                Background="Red" 
+                Background="#FFe63946" 
                 Foreground="White" 
                 FontSize="16" 
                 FontWeight="Bold" 
