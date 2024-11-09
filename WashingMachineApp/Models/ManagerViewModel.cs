@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 using Washin.App.Services;
 
-
 public class ManagerViewModel
 {
     private readonly BuildingApiService _buildingApiService;
@@ -18,8 +17,8 @@ public class ManagerViewModel
 
     public ManagerViewModel()
     {
-        GiveKeyCommand = new RelayCommand<Resident>(GiveKey);
-        KickOutCommand = new RelayCommand<Resident>(KickOut);
+        //GiveKeyCommand = new RelayCommand(GiveKey);
+       // KickOutCommand = new RelayCommand(KickOut);
 
         _buildingApiService = new BuildingApiService();
         _userApiService = new UserApiService();

@@ -19,6 +19,7 @@ namespace WashingMachine
         public Login()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel();
         }
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -34,6 +35,19 @@ namespace WashingMachine
             Manager managerWindow = new Manager();
             managerWindow.Show();
             this.Close(); // Close the Login window
+        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = sender as PasswordBox;
+            if (passwordBox != null)
+            {
+                // Set the password to the ViewModel
+                var viewModel = DataContext as LoginViewModel;
+                if (viewModel != null)
+                {
+                    viewModel.Password = passwordBox.Password;
+                }
+            }
         }
     }
 }

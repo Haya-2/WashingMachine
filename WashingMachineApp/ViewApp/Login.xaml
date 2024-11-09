@@ -9,12 +9,27 @@
     <Grid>
         <TextBlock Text="Login Page" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0" />
 
+        <!-- Login Section -->
+        <TextBlock Text="Username" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-100,0,0" />
+        <TextBox x:Name="LoginTextBox" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-60,0,0"
+                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Text="Password" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-30,0,0" />
+        <PasswordBox x:Name="PasswordBox" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"
+                     PasswordChanged="PasswordBox_PasswordChanged" >
+            
+        </PasswordBox>
+
+        <!-- Login Button -->
+        <Button Content="Login" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,80,0,0"
+                Command="{Binding LoginCommand}" />
+        
         <!-- Home Button -->
-        <Button Content="Go to Home" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,60"
+        <Button Content="Go to Home" Width="200" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0"
                 Click="HomeButton_Click"/>
 
         <!-- Manager Button -->
-        <Button Content="Go to Manager" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,60,0,0"
+        <Button Content="Go to Manager" Width="200" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,270,0,0"
                 Click="ManagerButton_Click"/>
     </Grid>
 </Window>
