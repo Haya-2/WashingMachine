@@ -22,7 +22,7 @@ public class ManagerViewModel
         KickOutCommand = new RelayCommand<Resident>(KickOut);
 
         _buildingApiService = new BuildingApiService();
-        
+        _userApiService = new UserApiService();
     }
 
     private void GiveKey(Resident resident)
@@ -59,30 +59,30 @@ public class ManagerViewModel
             int buildingId = 1;
 
             // Fetch data from the API
-            var apiResidents = await _buildingApiService.GetResidentsAsync(buildingId);
+            var apiResidents = await _userApiService.GetResidentsAsync(buildingId);
             Residents.Clear();
             foreach (var apiResident in apiResidents)
             {
-                /*var resident = new Resident(
-                    apiResident.Login,
-                    apiResident.Password,
-                    apiResident.Surname,
-                    apiResident.Name,
-                    apiResident.IsManager,
-                    apiResident.Id_Building
-                );*/
-                Console.WriteLine(apiResident);
+                var resident = new Resident();
+                resident.Login = apiResident.Login;
+                resident.Password = apiResident.Password;
+                resident.Surname = apiResident.Surname;
+                resident.Name = apiResident.Name;
+                resident.IsManager = apiResident.IsManager;
+                resident.Id_Building = apiResident.Id_Building;
 
-                //Residents.Add(resident);
+                Console.WriteLine(resident);
+                Residents.Add(resident);
             }
 
             // Fetch available machines for the building
-            var machines = await _machineApiService.GetMachineAsync(buildingId);
+            //var machines = await _machineApiService.GetMachineAsync(buildingId);
 
         }
         catch (Exception e)
         {
             // Handle any exceptions gracefully
+            Console.WriteLine("hello");
         }
     }
 }
@@ -97,13 +97,14 @@ public class Resident
     public int Id_Building { get; set; } 
 
     // Constructor for convenience
-    public Resident(string login, string password, string surname, string name, bool isManager, int idBuilding)
-    {
-        Login = login;
-        Password = password;
-        Surname = surname;
-        Name = name;
-        IsManager = isManager;
-        Id_Building = idBuilding;
-    }
+//    public Resident(int id, string login, string password, string surname, string name, bool isManager, int idBuilding)
+//    {
+//        this.id = id;
+//        this.login = login;
+//        this.password = password;
+//        this.surname = surname;
+//        this.name = name;
+//        this.isManager = isManager;
+//        this.id_Building = idBuilding;
+//    }
 }
