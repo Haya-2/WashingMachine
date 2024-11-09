@@ -39,5 +39,5 @@ Note : The order can be inverted BUT it can lead to slowing down computer on bad
 - **Add user features** : Such as their profile, their stat, but also guides related to resident or building and machine usage.
 
 
-Author : Aline (Haya-2)
+Author : Aline (Haya-2)  
 Co-author : Cassandra (ks0214)
