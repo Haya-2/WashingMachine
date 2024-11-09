@@ -1,3 +1,109 @@
+<<<<<<< HEAD
 .vs/
 **/bin/
 **/obj/
+=======
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+##############################
+## Windows ###################
+##############################
+*.exe
+*.dll
+*.pdb
+*.vshost.exe
+.vscode/
+.vs/
+*.user
+*.userosscache
+*.suo
+*.swp
+
+# Visual Studio Code workspace settings file
+*.code-workspace
+
+# Backup & Report Files
+##############################
+*.bak
+*.log
+*.mdf
+*.ldf
+*.ncb
+*.sdf
+*.sln.docstates
+
+# Image Thumbnails
+Thumbs.db
+
+# File system
+.DS_Store
+ehthumbs.db
+
+# Image cache for the file explorer in Windows
+*.stackdump
+
+##############################
+## Visual Studio #############
+##############################
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Mono auto generated files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Ignore all bin and obj folders
+**/bin/
+**/obj/
+
+# VS Code directory
+.vscode/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Compiled binary files
+*.dll
+*.exe
+*.pdb
+*.app
+*.out
+
+##############################
+## Visual Studio ################
+##############################
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Mono auto generated files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+>>>>>>> origin/main
