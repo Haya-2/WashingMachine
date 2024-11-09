@@ -30,6 +30,10 @@
         <Button Content="Login" Width="200" Height="30" Background="#cbf3f0" Foreground="#1d3557" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,90,0,0"
                 Command="{Binding LoginCommand}" />
         
+        <!-- Login not really working ... Because I can't get the "isManager" value, so is the user exist, it go to 'home' even if it is a manager. 
+        The following button are just debug for now, and will be deleted when the login works better. 
+        ALSO weird crash if a lot of test on fake login, IDK if it was my PC or the app, to test again -->
+        
         <!-- Home Button -->
         <Button Content="Go to Home" Width="200" Height="30" Background="#81c3d7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0"
                 Click="HomeButton_Click"/>
