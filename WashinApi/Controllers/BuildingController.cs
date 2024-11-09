@@ -22,7 +22,7 @@ namespace WashinApi.Controllers
         [HttpGet("{Id_Building}")]
         public ActionResult<Building> GetBuilding(int Id_Building)
         {
-            var building = _context.Buildings.Find(Id_Building);
+            var building = _context.Buildings.FirstOrDefault(b => b.Id == Id_Building);
 
             return building == null ? NotFound() : building;
         }
@@ -31,7 +31,7 @@ namespace WashinApi.Controllers
         [HttpGet("{Id_Building}/queue")]
         public ActionResult<IEnumerable<User>> GetQueue(int Id_Building)
         {
-            var building = _context.Buildings.Find(Id_Building);
+            var building = _context.Buildings.FirstOrDefault(b => b.Id == Id_Building);
 
             return building == null ? NotFound() : building.Queue.ToList();
         }
@@ -40,19 +40,18 @@ namespace WashinApi.Controllers
         [HttpPost("{Id_Building}/addToQueue")]
         public IActionResult AddToQueue(int Id_Building, [FromBody] int userId)
         {
-            var building = _context.Buildings.Find(Id_Building);
-            var user = _context.Users.Find(userId);
+            var building = _context.Buildings.FirstOrDefault(b => b.Id == Id_Building);
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
 
             if (building == null || user == null)
             {
                 return NotFound();
             }
 
-            // Vérifie si l'utilisateur est déjà dans la file d'attente
             if (!building.Queue.Any(u => u.Id == userId))
             {
                 building.Queue.Add(user);
-                _context.SaveChanges();
+                _context.SaveData();
             }
 
             return Ok();
@@ -62,7 +61,7 @@ namespace WashinApi.Controllers
         [HttpDelete("{Id_Building}/removeFromQueue/{userId}")]
         public IActionResult RemoveFromQueue(int Id_Building, int userId)
         {
-            var building = _context.Buildings.Find(Id_Building);
+            var building = _context.Buildings.FirstOrDefault(b => b.Id == Id_Building);
             if (building == null)
             {
                 return NotFound();
@@ -72,7 +71,7 @@ namespace WashinApi.Controllers
             if (userInQueue != null)
             {
                 building.Queue.Remove(userInQueue);
-                _context.SaveChanges();
+                _context.SaveData();
             }
 
             return Ok();
@@ -82,7 +81,7 @@ namespace WashinApi.Controllers
         [HttpGet("{Id_Building}/queuePosition/{userId}")]
         public ActionResult<int> GetPositionInQueue(int Id_Building, int userId)
         {
-            var building = _context.Buildings.Find(Id_Building);
+            var building = _context.Buildings.FirstOrDefault(b => b.Id == Id_Building);
             if (building == null)
             {
                 return NotFound();
@@ -96,9 +95,9 @@ namespace WashinApi.Controllers
         [HttpGet("building/{Id_Building}/managers")]
         public async Task<IActionResult> GetManagers(int Id_Building)
         {
-            var managers = await _context.Users
+            var managers = _context.Users
                 .Where(u => u.IsManager == true && u.Id_Building == Id_Building)
-                .ToListAsync();
+                .ToList();
 
             return Ok(managers);
         }
@@ -108,9 +107,9 @@ namespace WashinApi.Controllers
         [HttpGet("building/{Id_Building}/residents")]
         public async Task<IActionResult> GetResidents(int Id_Building)
         {
-            var residents = await _context.Users
+            var residents = _context.Users
                 .Where(u => u.IsManager == false && u.Id_Building == Id_Building)
-                .ToListAsync();
+                .ToList();
 
             return Ok(residents);
         }
@@ -120,9 +119,9 @@ namespace WashinApi.Controllers
         [HttpGet("building/{Id_Building}/machines")]
         public async Task<IActionResult> GetMachines(int Id_Building)
         {
-            var machines = await _context.Machines
+            var machines = _context.Machines
                 .Where(m => m.Id_Building == Id_Building)
-                .ToListAsync();
+                .ToList();
 
             return Ok(machines);
         }

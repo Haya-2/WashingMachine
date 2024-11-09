@@ -8,14 +8,16 @@ using Microsoft.EntityFrameworkCore.InMemory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Ajouter le service DbContext en mémoire
-builder.Services.AddDbContext<WashinContext>(options =>
-    options.UseInMemoryDatabase("WashinDb") // Utilisation d'une base de données en mémoire
-);
+// Ajouter le service WashinContext en singleton
+builder.Services.AddSingleton<WashinContext>(serviceProvider =>
+{
+    // CrÃ©er une instance de WashinContext (qui charge les donnÃ©es JSON)
+    var context = new WashinContext();
+    context.LoadData(); // Charger les donnÃ©es depuis les fichiers JSON au dÃ©marrage
+    return context;
+});
 
-
-
-// Ajouter les services de l'application (contrôleurs, etc.)
+// Ajouter les services de l'application (contrÃ´leurs, etc.)
 builder.Services.AddControllers();
 
 // Ajouter Swagger pour la documentation d'API
@@ -24,19 +26,17 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-SeedData.Initialize(app.Services);
+// Mapper les contrÃ´leurs
 app.MapControllers();
-// Activer Swagger si l'environnement est le développement
+
+// Activer Swagger si l'environnement est le dÃ©veloppement
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Utiliser les contrôleurs (les routes de l'API)
-
-
-// Démarrer l'application
+// DÃ©marrer l'application
 app.Run();
 
 
@@ -55,7 +55,7 @@ app.Run();
 //{
 //    options.AddPolicy("AllowSwagger", builder =>
 //    {
-//        builder.AllowAnyOrigin() // Utilisez .WithOrigins("http://localhost:<port>") pour restreindre l'origine si nécessaire
+//        builder.AllowAnyOrigin() // Utilisez .WithOrigins("http://localhost:<port>") pour restreindre l'origine si nï¿½cessaire
 //               .AllowAnyMethod()
 //               .AllowAnyHeader();
 //    });

@@ -1,34 +1,54 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text.Json;
 using WashinApi.Models;
 
 namespace WashinApi.Data
 {
     public class WashinContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Building> Buildings { get; set; }
-        public DbSet<Machine> Machines { get; set; }
+        public List<Building> Buildings { get; set; } = new();
+        public List<User> Users { get; set; } = new();
+        public List<Machine> Machines { get; set; } = new();
 
-        public WashinContext() { }
-
-        public WashinContext(DbContextOptions<WashinContext> options)
-           : base(options)
-        { }
-
-        // OnConfiguring définit la chaîne de connexion manuellement
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public void JsonDbContext()
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseMySql("Server=localhost;Database=WashinApp;User=root;Password=2020Epita!;",
-                    new MySqlServerVersion(new Version(8, 0, 39)));
-            }
+            LoadData();
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
 
+        public void LoadData()
+        {
+            // Charger les bâtiments depuis le fichier JSON
+            var buildingsData = File.ReadAllText("Data/buildings.json");
+            Buildings = System.Text.Json.JsonSerializer.Deserialize<List<Building>>(buildingsData, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // Ignorer la casse
+            }) ?? new List<Building>();
+
+            // Charger les utilisateurs depuis le fichier JSON
+            var usersData = File.ReadAllText("Data/users.json");
+            Users = System.Text.Json.JsonSerializer.Deserialize<List<User>>(usersData, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // Ignorer la casse
+            }) ?? new List<User>();
+
+            // Charger les machines depuis le fichier JSON
+            var machinesData = File.ReadAllText("Data/machines.json");
+            Machines = System.Text.Json.JsonSerializer.Deserialize<List<Machine>>(machinesData, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // Ignorer la casse
+            }) ?? new List<Machine>();
+        }
+
+        public void SaveData()
+        {
+            File.WriteAllText("Data/buildings.json", System.Text.Json.JsonSerializer.Serialize(Buildings));
+            File.WriteAllText("Data/users.json", System.Text.Json.JsonSerializer.Serialize(Users));
+            File.WriteAllText("Data/machines.json", System.Text.Json.JsonSerializer.Serialize(Machines));
         }
     }
+
 }

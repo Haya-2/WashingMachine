@@ -19,7 +19,7 @@ namespace WashinApi.Controllers
         [HttpGet("{machineId}")]
         public ActionResult<Machine> GetMachine(int machineId)
         {
-            var machine = _context.Machines.Find(machineId);
+            var machine = _context.Machines.FirstOrDefault(m => m.Id == machineId);
             if (machine == null)
             {
                 return NotFound();
@@ -32,7 +32,7 @@ namespace WashinApi.Controllers
         [HttpPut("{machineId}/updateStatus")]
         public IActionResult UpdateMachineStatus(int machineId, [FromBody] int? userId)
         {
-            var machine = _context.Machines.Find(machineId);
+            var machine = _context.Machines.FirstOrDefault(m => m.Id == machineId);
             if (machine == null)
             {
                 return NotFound();

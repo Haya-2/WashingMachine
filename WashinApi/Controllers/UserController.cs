@@ -20,15 +20,10 @@ namespace WashinApi.Controllers
         [HttpGet("residents/{Id_Building}")]
         public ActionResult<IEnumerable<User>> GetResidents(int Id_Building)
         {
-            var building = _context.Buildings.Find(Id_Building);
-
-            if (building == null)
-            {
-                return NotFound();
-            }
-
-            var context = _context.Users.Where(u => u.Id_Building == Id_Building && !u.IsManager).ToList();
-            return context;
+            var residents = _context.Users
+                .Where(u => u.Id_Building == Id_Building && !u.IsManager)
+                .ToList();
+            return residents.Any() ? residents : NotFound(); return residents.Any() ? residents : NotFound();
         }
 
         // GET: api/user/residents/1
@@ -48,21 +43,23 @@ namespace WashinApi.Controllers
         [HttpPost("addToQueue")]
         public IActionResult AddToQueue([FromBody] int userId)
         {
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
             if (user == null)
             {
                 return NotFound();
             }
 
-            var building = _context.Buildings.Find(user.Id_Building);
+            var building = _context.Buildings.FirstOrDefault(b => b.Id == user.Id_Building);
             if (building == null)
             {
                 return NotFound();
             }
 
-            // Ajout à la queue (on suppose que Building gère la queue)
-            building.Queue.Add(user);
-            _context.SaveChanges();
+            if (!building.Queue.Any(u => u.Id == userId))
+            {
+                building.Queue.Add(user);
+                _context.SaveData();
+            }
 
             return Ok();
         }
@@ -71,20 +68,20 @@ namespace WashinApi.Controllers
         [HttpDelete("removeFromQueue/{userId}")]
         public IActionResult RemoveFromQueue(int userId)
         {
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
             if (user == null)
             {
                 return NotFound();
             }
 
-            var building = _context.Buildings.Find(user.Id_Building);
+            var building = _context.Buildings.FirstOrDefault(b => b.Id == user.Id_Building);
             if (building == null)
             {
                 return NotFound();
             }
 
-            building.Queue.Remove(user);
-            _context.SaveChanges();
+            building.Queue.RemoveAll(u => u.Id == userId);
+            _context.SaveData();
 
             return Ok();
         }
