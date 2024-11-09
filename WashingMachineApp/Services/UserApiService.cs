@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Washin.App.Services
@@ -19,19 +20,30 @@ namespace Washin.App.Services
         }
 
         // GET: api/user/residents/1
-        public async Task<string> GetResidentsAsync(int buildingId)
+        public async Task<List<Resident>> GetResidentsAsync(int buildingId)
         {
-            var response = await _httpClient.GetAsync($"api/user/residents/{buildingId}");
+            var response = await _httpClient.GetAsync($"api/User/residents/{buildingId}");
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+
+            // Désérialiser le contenu JSON en List<User>
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var residents = JsonSerializer.Deserialize<List<Resident>>(jsonString, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true
+            });
+
+            return residents;
         }
 
         // GET: api/user/residents/login/pwd
-        public async Task<string> GetLoginAsync(string login, string pwd)
+        public async Task<Resident?> GetLoginAsync(string login, string pwd)
         {
             var response = await _httpClient.GetAsync($"api/user/residents/{login}/{pwd}");
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            
+            var userJson = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<Resident>(userJson);
         }
 
         // POST: api/user/addToQueue

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
+using Washin.App.Services;
 
 public class LaundryViewModel : INotifyPropertyChanged
 {
+    private readonly BuildingApiService _buildingApiService;
     private string _machineState;
     private int _nbPeopleInQueue, _nbMachine, _nbMachineWorking, _nbMachineNotW, _nbPeopleBeforeMeInQueue, _nbMachineAvailable;
     private double _waitingTimeEstimate;
@@ -97,11 +99,40 @@ public class LaundryViewModel : INotifyPropertyChanged
     }*/
     public LaundryViewModel()
     {
-        // Initial states
-        MachineState = "State: Washing machine available";
-        PeopleInQueue = Machines = MachineWorking = MachineNotWorking = PeopleBeforeMeInQueue = MachineAvailable = 0;
-        WaitingTimeEstimate = 0.00;
+        _buildingApiService = new BuildingApiService();
+    }
 
+    // Asynchronous initialization method
+    public async Task InitializeAsync()
+    {
+        await LoadBuildingDataAsync();
+    }
+
+    private async Task LoadBuildingDataAsync()
+    {
+        try
+        {
+            int buildingId = 1; 
+
+            // Fetch data from the API
+            var machinesData = await _buildingApiService.GetMachinesAsync(buildingId);
+            var queueData = await _buildingApiService.GetQueueAsync(buildingId);
+
+            // Parse and update data (replace these placeholders with actual data)
+            MachineAvailable = 5; 
+            MachineWorking = 5; 
+            PeopleInQueue = 5; 
+
+            // Set a default machine state
+            MachineState = (MachineAvailable > 0) ? "State: Washing machine available" : "State: No washing machines available";
+
+            // Estimate waiting time
+            WaitingTimeEstimate = 20.0; // Placeholder
+        }
+        catch (Exception e)
+        {
+            // Handle any exceptions gracefully
+        }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
