@@ -65,12 +65,12 @@ namespace Washin.App.Services
         }
 
         // GET: api/building/1/residents
-        public async Task<string> GetResidentsAsync(int buildingId)
-        {
-            var response = await _httpClient.GetAsync($"api/building/{buildingId}/residents");
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
-        }
+        //public async Task<string> GetResidentsAsync(int buildingId)
+        //{
+        //    var response = await _httpClient.GetAsync($"api/building/{buildingId}/residents");
+        //    response.EnsureSuccessStatusCode();
+        //    return await response.Content.ReadAsStringAsync();
+        //}
 
         // GET: api/building/1/machines
         public async Task<string> GetMachinesAsync(int buildingId)
