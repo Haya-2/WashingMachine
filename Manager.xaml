@@ -1,0 +1,56 @@
+﻿<Window x:Class="WashingMachine.Manager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WashingMachine"
+        mc:Ignorable="d"
+        Title="Manager" Height="400" Width="600" Background="#f1faee">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFA8DADC"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Manager Header -->
+        <TextBlock Text="Manager Control Panel" FontSize="24" FontWeight="Bold" 
+                   Foreground="#1d3557" HorizontalAlignment="Center" Margin="0,10,0,0" />
+
+        <!-- Machine Status and Queue -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,50,0,0">
+            <TextBlock FontSize="16" FontWeight="Bold" Foreground="#1d3557">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="There are {0} machines available and {1} working in total.">
+                        <Binding Path="MachineAvailable" />
+                        <Binding Path="MachineWorking" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <TextBlock Text="{Binding PeopleInQueue, StringFormat='There are {0} residents in the queue'}" 
+                       FontSize="16" FontWeight="Bold" Foreground="#1d3557" />
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Orientation="Vertical" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    Margin="0,0,0,0"
+                    Width="200">
+            <Button Content="See resident (utilisation)" Background="LightBlue" Margin="0,5,0,5" Height="30" />
+            <Button Content="Giving Key" Background="LightGreen" Margin="0,5,0,5" Height="30" Click="KeyButton_Click" />
+            <Button Content="Declare state Machines" Background="MediumPurple" Margin="0,5,0,5" Height="30" />
+            <Button Content="Daily report" Background="LightCyan" Margin="0,5,0,5" Height="30" />
+        </StackPanel>
+    </Grid>
+</Window>
