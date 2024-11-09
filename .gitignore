@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+.vs/
+**/bin/
+**/obj/
+=======
 # Ignore Visual Studio temporary files, build results, and
 # user-specific files
 ##############################
@@ -101,3 +106,4 @@ mono_crash.*
 
 # Windows image file caches
 Thumbs.db
+>>>>>>> origin/main

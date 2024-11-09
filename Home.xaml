@@ -1,0 +1,50 @@
+﻿<Window x:Class="WashingMachine.Home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WashingMachine"
+        mc:Ignorable="d"
+        Title="Home" Height="450" Width="500">
+    <Grid>
+        <!-- Chrono Label -->
+        <TextBlock Text="CHRONO" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,10,0,0" 
+                   FontSize="18" 
+                   FontWeight="Bold" 
+                   Background="Plum"
+                   Padding="5,2"/>
+
+        <!-- Home Header -->
+        <TextBlock Text="HOME" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,50,0,0" 
+                   FontSize="20" 
+                   FontWeight="Bold"/>
+
+        <!-- Queue Information -->
+        <TextBlock Text="{Binding PeopleInQueue, StringFormat='There are {0} people before you in the queue'}" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,120,0,0" 
+                   FontSize="14"/>
+
+        <TextBlock Text="{Binding MachineWorking, StringFormat='There are {0} operating machine'}" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,150,0,0" 
+                   FontSize="14"/>
+
+        <!-- Queue Button -->
+        <Button Content="Get in queue" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Margin="0,200,0,0" 
+                Width="150" 
+                Height="30" 
+                Background="LightGray"/>
+    </Grid>
+</Window>
