@@ -7,19 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Login.xaml">
+    <Page Update="ViewApp\Login.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Home.xaml">
+    <Page Update="ViewApp\Home.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="KeyDistributionWindow.xaml">
+    <Page Update="ViewApp\KeyDistributionWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Manager.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MainWindow.xaml">
+    <Page Update="ViewApp\Manager.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
