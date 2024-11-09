@@ -1,0 +1,6 @@
+@WashinApi_HostAddress = http://localhost:5299
+
+GET {{WashinApi_HostAddress}}/
+Accept: application/json
+
+###
