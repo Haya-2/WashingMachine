@@ -24,10 +24,18 @@ namespace WashingMachine
             InitializeComponent();
             DataContext = App.LaundryViewModel;
         }
+        
         private void Button_Chrono(object sender, RoutedEventArgs e)
         {
             // Open the Key window
             Chrono w = new Chrono();
+            w.Show();
+            this.Close(); // Close the Manager window
+        }
+        private void Button_Queue(object sender, RoutedEventArgs e)
+        {
+            // Open the Key window
+            HomeWait w = new HomeWait();
             w.Show();
             this.Close(); // Close the Manager window
         }

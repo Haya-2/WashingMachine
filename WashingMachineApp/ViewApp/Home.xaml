@@ -30,6 +30,7 @@
                    VerticalAlignment="Top" 
                    Margin="0,70,0,0" 
                    FontSize="20" 
+                   Foreground="#1d3557"
                    FontWeight="Bold" />
 
         <!-- Queue Information -->
@@ -37,12 +38,14 @@
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
                    Margin="0,120,0,0" 
+                   Foreground="#1d3557"
                    FontSize="14" />
 
         <TextBlock Text="{Binding MachineWorking, StringFormat='There are {0} operating machine'}" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
                    Margin="0,150,0,0" 
+                   Foreground="#1d3557"
                    FontSize="14" />
 
         <!-- Queue Button -->
@@ -52,6 +55,8 @@
                 Margin="0,200,0,0" 
                 Width="150" 
                 Height="30" 
-                Background="LightGray" />
+                Foreground="#1d3557"
+                Background="#ffa7c957"
+                Click="Button_Queue" />
     </Grid>
 </Window>

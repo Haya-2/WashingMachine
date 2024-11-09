@@ -1,0 +1,67 @@
+﻿<Window x:Class="WashingMachine.HomeWait"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WashingMachine"
+        mc:Ignorable="d"
+        Title="HomeWait" Height="450" Width="500">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="White" Offset="1"/>
+            <GradientStop Color="#FFA8DADC"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>        
+        <Button Content="Set Chrono" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Background="#81c3d7"
+                FontWeight="Bold"  
+                Foreground="#FF0F2038" 
+                Margin="0,10,0,5" 
+                Width="200"
+                Height="50" 
+                Click="Button_Chrono" />
+
+        <!-- Home Header -->
+        <TextBlock Text="HOME" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,70,0,0" 
+                   FontSize="20" 
+                   Foreground="#1d3557"
+                   FontWeight="Bold" />
+
+        <!-- Queue Information -->
+        <TextBlock Text="You are now in a queue .... " 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,120,0,0" 
+                   Foreground="#1d3557"
+                   FontSize="14" />
+
+        <TextBlock FontSize="16" FontWeight="Bold" Foreground="#1d3557"
+                   Margin="0,150,0,0" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" >
+            <TextBlock.Text>
+                <MultiBinding StringFormat=" {0} person(s) before your turn, around {0} waiting time.">
+                    <Binding Path="PeopleInQueue" />
+                    <Binding Path="WaitingTimeEstimate" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+        <!-- Queue Button -->
+        <Button Content="Get out of queue" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Margin="0,200,0,0" 
+                Width="150" 
+                Height="30" 
+                Foreground="#1d3557"
+                Background="#ffe63946"
+                Click="Button_QuitQueue" />
+    </Grid>
+</Window>

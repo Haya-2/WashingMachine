@@ -33,9 +33,11 @@ namespace WashingMachine
             this.Close(); // Close the Manager window
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ResidentsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SeeResidents w = new SeeResidents();
+            w.Show();
+            this.Close(); // Close the Manager window
         }
     }
 }
