@@ -13,7 +13,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid>        
-        <Button Content="Set Chrono" 
+        <Button Content="Set Timer" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Background="#81c3d7"

@@ -31,8 +31,8 @@ namespace WashinApi.Controllers
         public ActionResult<User> GetLogin(string login, string pwd)
         {
             var user = _context.Users.Where(u => u.Login == login && u.Password == pwd).ToList();
-
-            if (user == null)
+            Console.WriteLine(user);
+            if (user == null || user.Count == 0)
             {
                 return NotFound();
             }

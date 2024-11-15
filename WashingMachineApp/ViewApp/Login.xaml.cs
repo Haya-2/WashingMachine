@@ -46,6 +46,7 @@ namespace WashingMachine
                 if (viewModel != null)
                 {
                     viewModel.Password = passwordBox.Password;
+                    //Console.WriteLine(viewModel.Password, passwordBox.Password, "TEST");
                 }
             }
         }

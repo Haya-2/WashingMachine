@@ -43,7 +43,12 @@ namespace Washin.App.Services
             response.EnsureSuccessStatusCode();
             
             var userJson = await response.Content.ReadAsStringAsync();
-            var user = JsonSerializer.Deserialize<Resident>(userJson, new JsonSerializerOptions
+            if (userJson == null)
+            {
+                //MessageBox.Show("Invalid login or password.");
+                return null;
+            }
+                var user = JsonSerializer.Deserialize<Resident>(userJson, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });

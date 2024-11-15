@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WashingMachine"
         mc:Ignorable="d"
-        Title="Manager" Height="400" Width="500" Background="White">
+        Title="Manager" Height="450" Width="500" Background="White">
 
     <Window.Resources>
         <Style TargetType="Button">
