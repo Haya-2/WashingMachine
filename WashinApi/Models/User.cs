@@ -1,4 +1,6 @@
-﻿namespace WashinApi.Models
+﻿using System.Text.Json.Serialization;
+
+namespace WashinApi.Models
 {
     public class User
     {
@@ -10,6 +12,7 @@
         public bool IsManager { get; set; }
         public int Id_Building { get; set; }
 
+        [JsonIgnore]
         public Building Building { get; set; }
 
     }

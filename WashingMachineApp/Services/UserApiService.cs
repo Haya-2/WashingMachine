@@ -43,6 +43,10 @@ namespace Washin.App.Services
             response.EnsureSuccessStatusCode();
             
             var userJson = await response.Content.ReadAsStringAsync();
+            var user = JsonSerializer.Deserialize<Resident>(userJson, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
             return JsonSerializer.Deserialize<Resident>(userJson);
         }
 

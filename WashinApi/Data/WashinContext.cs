@@ -41,6 +41,15 @@ namespace WashinApi.Data
             {
                 PropertyNameCaseInsensitive = true // Ignorer la casse
             }) ?? new List<Machine>();
+
+            foreach (var u in Users)
+            {
+                u.Building = Buildings.FirstOrDefault(b => b.Id == u.Id_Building);
+            }
+            foreach (var m in Machines)
+            {
+                m.Building = Buildings.FirstOrDefault(b => b.Id == m.Id_Building);
+            }
         }
 
         public void SaveData()
