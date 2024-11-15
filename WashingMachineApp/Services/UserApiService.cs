@@ -47,7 +47,7 @@ namespace Washin.App.Services
             {
                 PropertyNameCaseInsensitive = true
             });
-            return JsonSerializer.Deserialize<Resident>(userJson);
+            return user;
         }
 
         // POST: api/user/addToQueue
