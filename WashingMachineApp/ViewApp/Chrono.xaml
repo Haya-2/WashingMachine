@@ -1,19 +1,20 @@
-﻿<Window x:Class="WashingMachine.Chrono"
+﻿<UserControl x:Class="WashingMachine.Views.Chrono"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:WashingMachine" xmlns:b1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" xmlns:b2="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:b3="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
-        mc:Ignorable="d"
-        Title="Timer" Height="450" Width="500">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="White" Offset="1"/>
-            <GradientStop Color="#FFA8DADC"/>
-        </LinearGradientBrush>
-    </Window.Background>
-    <Grid>        
+        mc:Ignorable="d">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                <GradientStop Color="#FFF1EAA7" Offset="0.0" />
+                <!-- Light green -->
+                <GradientStop Color="#FFFFBB5D" Offset="1.0" />
+                <!-- Darker green -->
+            </LinearGradientBrush>
+        </Grid.Background>
         <!-- Home Header -->
         <TextBlock Text="TIMER" 
                    HorizontalAlignment="Center" 
@@ -51,4 +52,4 @@
 
         </StackPanel>
     </Grid>
-</Window>
+</UserControl>

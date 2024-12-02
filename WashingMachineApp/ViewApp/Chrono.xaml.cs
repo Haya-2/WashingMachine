@@ -12,23 +12,42 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WashingMachine.ViewModels;
 
-namespace WashingMachine
+namespace WashingMachine.Views
 {
     /// <summary>
     /// Interaction logic for Chrono.xaml
     /// </summary>
-    public partial class Chrono : Window
+    public partial class Chrono : UserControl
     {
-        public Chrono()
+        private readonly Home _homeWindow;
+        private readonly HomeWait _homeWaitControl;
+        private readonly bool _isHomeWait;
+        public Chrono(Home home, bool isHomeWait = false)
         {
             InitializeComponent();
-            DataContext = App.LaundryViewModel;
+            _homeWindow = home;
+            _isHomeWait = isHomeWait;
         }
+
+        public Chrono(HomeWait homeWait)
+        {
+            InitializeComponent();
+            _homeWaitControl = homeWait;
+            _isHomeWait = true;
+        }
+
         private void ReturnToHome_Click(object sender, RoutedEventArgs e)
         {
-            Home w = new Home();
-            w.Show();
-            this.Close();
+            if (_isHomeWait && _homeWaitControl != null)
+            {
+                // Navigate back to the HomeWait UserControl
+                _homeWaitControl._home.MainContentHome.Content = _homeWaitControl;
+            }
+            else if (_homeWindow != null)
+            {
+                // Navigate back to the Home window
+                _homeWindow.MainContentHome.Content = null;
+            }
         }
     }
 }

@@ -58,5 +58,8 @@
                 Foreground="#1d3557"
                 Background="#ffa7c957"
                 Click="Button_Queue" />
+    <!-- Content area -->
+    <ContentControl x:Name="MainContentHome" Grid.Row="1" Margin="10" />
     </Grid>
+
 </Window>

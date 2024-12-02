@@ -12,32 +12,28 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WashingMachine.ViewModels;
 
-namespace WashingMachine
+namespace WashingMachine.Views
 {
     /// <summary>
     /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class HomeWait : Window
+    public partial class HomeWait : UserControl
     {
-        public HomeWait()
+        public readonly Home _home;
+        public HomeWait(Home home)
         {
             InitializeComponent();
-            DataContext = App.LaundryViewModel;
+            _home = home;
         }
         private void Button_Chrono(object sender, RoutedEventArgs e)
         {
-            // Open the Key window
-            Chrono w = new Chrono();
-            w.Show();
-            this.Close(); // Close the Manager window
+            Chrono chronoPage = new Chrono(this); // Pass HomeWait to Chrono
+            _home.MainContentHome.Content = chronoPage;
         }
 
         private void Button_QuitQueue(object sender, RoutedEventArgs e)
         {
-            // Open the Key window
-            HomeWait w = new HomeWait();
-            w.Show();
-            this.Close();
+            _home.MainContentHome.Content = null;
         }
     }
 }

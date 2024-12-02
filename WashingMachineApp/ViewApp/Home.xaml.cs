@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WashingMachine.ViewModels;
+using WashingMachine.Views;
 
 namespace WashingMachine
 {
@@ -24,20 +25,17 @@ namespace WashingMachine
             InitializeComponent();
             DataContext = App.LaundryViewModel;
         }
-        
+
         private void Button_Chrono(object sender, RoutedEventArgs e)
         {
-            // Open the Key window
-            Chrono w = new Chrono();
-            w.Show();
-            this.Close(); // Close the Manager window
+            Chrono chronoPage = new Chrono(this, false); // Indicate it's the main Home window
+            MainContentHome.Content = chronoPage;
         }
+
         private void Button_Queue(object sender, RoutedEventArgs e)
         {
-            // Open the Key window
-            HomeWait w = new HomeWait();
-            w.Show();
-            this.Close(); // Close the Manager window
+            HomeWait homeWaitPage = new HomeWait(this); // Pass `this` as the parent Home window
+            MainContentHome.Content = homeWaitPage;
         }
     }
 }
