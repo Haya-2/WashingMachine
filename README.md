@@ -8,7 +8,7 @@ The app's also have a resident side where they can see usefull informations star
 
 ### Current Limitations 
 
-- **Login Feature**: The login functionality is currently not fully operational. Work is needed to complete the login system for manager access. There is button to navigate for now so everything is accessible.
+- **Login Feature**: The login functionality should be fully operational. There is still some error cases that hasn't been tested. There are buttons to navigate for now, so everything is accessible.
 - **Button Functionality**: Some buttons, such as "Give Key" and "Kick Out," have not yet been implemented with corresponding commands or actions. There is also the "Declare state Machines" as well as "Daily repport". The latter will be a json of all the mouvement for the machines, so the manager can use this to ensure residents will pay for the machine.
 
 ## Setup Instructions
@@ -27,16 +27,19 @@ Note : The order can be inverted BUT it can lead to slowing down computer on bad
 
 ## Project Structure
 
-- **ViewModels**: Contains the logic for binding data to the UI, including managing resident data and machine availability.
-- **Views**: XAML files that define the user interface, including the layout and styling of elements in the manager view.
+- **ViewModels**: Contains the logic for binding data to the UI, including managing resident data or machine availability.
+- **Views**: XAML files that define the user interface, including the layout and styling of elements in the views.
 - **Models**: Classes representing data structures for residents, machines, etc.
 
 ## Future Enhancements
 
-- **Complete Login Feature**: Secure the app with a working login system to restrict access to manager-only functions.
 - **Button Functionality**: Implement the actions for "Give Key" and "Kick Out" buttons, allowing managers to effectively control the washing machine access queue.
 - **Error Handling and Notifications**: Add user feedback for successful actions or errors to improve usability.
 - **Add user features** : Such as their profile, their stat, but also guides related to resident or building and machine usage.
+
+# 02/12/2024 - Fix to do : 
+
+- Manager side, the connection to the data has been compromised. I (Aline) will work on it soon.
 
 
 Author : Aline (Haya-2)  
