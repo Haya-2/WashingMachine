@@ -10,24 +10,23 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WashingMachine.ViewModels;
 
-namespace WashingMachine
+namespace WashingMachine.Views
 {
     /// <summary>
     /// Interaction logic for KeyDistributionWindow.xaml
     /// </summary>
-    public partial class KeyDistributionWindow : Window
+    public partial class KeyDistributionWindow : UserControl
     {
-        public KeyDistributionWindow()
+        private readonly Manager _managerWindow;
+        public KeyDistributionWindow(Manager manager)
         {
             InitializeComponent();
-            DataContext = new CombinedViewModel(new ManagerViewModel(), App.LaundryViewModel);
+            _managerWindow = manager;
         }
 
         private void ReturnToManager_Click(object sender, RoutedEventArgs e)
         {
-            Manager W = new Manager();
-            W.Show();
-            this.Close(); // Close the KeyDistributionWindow window
+            _managerWindow.MainContent.Content = null;
         }
     }
 }

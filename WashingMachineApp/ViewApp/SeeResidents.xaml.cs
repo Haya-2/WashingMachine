@@ -10,24 +10,23 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WashingMachine.ViewModels;
 
-namespace WashingMachine
+namespace WashingMachine.Views
 {
     /// <summary>
     /// Interaction logic for SeeResidents.xaml
     /// </summary>
-    public partial class SeeResidents : Window
+    public partial class SeeResidents : UserControl
     {
-        public SeeResidents()
+        private readonly Manager _managerWindow;
+        public SeeResidents(Manager manager)
         {
             InitializeComponent();
-            DataContext = new CombinedViewModel(new ManagerViewModel(), App.LaundryViewModel);
-        }
+            _managerWindow = manager;
+    }
 
         private void ReturnToManager_Click(object sender, RoutedEventArgs e)
         {
-            Manager W = new Manager();
-            W.Show();
-            this.Close(); // Close the KeyDistributionWindow window
+            _managerWindow.MainContent.Content = null;
         }
     }
 }

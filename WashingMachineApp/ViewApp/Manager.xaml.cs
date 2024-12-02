@@ -27,17 +27,12 @@ namespace WashingMachine
         }
         private void KeyButton_Click(object sender, RoutedEventArgs e)
         {
-            // Open the Key window
-            KeyDistributionWindow keyWindow = new KeyDistributionWindow();
-            keyWindow.Show();
-            this.Close(); // Close the Manager window
+            MainContent.Content = new Views.KeyDistributionWindow(this);
         }
 
         private void ResidentsButton_Click(object sender, RoutedEventArgs e)
         {
-            SeeResidents w = new SeeResidents();
-            w.Show();
-            this.Close(); // Close the Manager window
+            MainContent.Content = new Views.SeeResidents(this);
         }
     }
 }
