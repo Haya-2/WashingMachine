@@ -24,6 +24,7 @@ namespace WashingMachine.Views
         {
             InitializeComponent();
             _home = home;
+            DataContext = App.LaundryViewModel;
         }
         private void Button_Chrono(object sender, RoutedEventArgs e)
         {

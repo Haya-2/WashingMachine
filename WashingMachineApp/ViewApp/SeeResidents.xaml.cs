@@ -22,7 +22,8 @@ namespace WashingMachine.Views
         {
             InitializeComponent();
             _managerWindow = manager;
-    }
+            DataContext = new CombinedViewModel(new ManagerViewModel(), App.LaundryViewModel);
+        }
 
         private void ReturnToManager_Click(object sender, RoutedEventArgs e)
         {
