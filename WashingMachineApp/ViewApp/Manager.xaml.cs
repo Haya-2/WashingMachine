@@ -34,5 +34,10 @@ namespace WashingMachine
         {
             MainContent.Content = new Views.SeeResidents(this);
         }
+        
+        private void MachineStateButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new Views.MachinesState(this);
+        }
     }
 }

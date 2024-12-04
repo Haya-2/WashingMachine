@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Washin.App.Services
@@ -19,11 +21,25 @@ namespace Washin.App.Services
         }
 
         // GET: api/machine/5
-        public async Task<string> GetMachineAsync(int machineId)
+        /*public async Task<string> GetMachineAsync(int machineId)
         {
             var response = await _httpClient.GetAsync($"api/machine/{machineId}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
+        }*/
+        public async Task<List<Machine>> GetMachineAsync(int buildingId)
+        {
+            var response = await _httpClient.GetAsync($"api/machine/{buildingId}");
+            response.EnsureSuccessStatusCode(); 
+
+            var machineJson = await response.Content.ReadAsStringAsync(); 
+
+            var machine = JsonSerializer.Deserialize < List<Machine>>(machineJson, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true
+            });
+            return machine;
         }
 
         // PUT: api/machine/5/updateStatus

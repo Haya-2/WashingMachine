@@ -49,7 +49,7 @@
                     Width="200">
             <Button Content="See resident (utilisation)" Background="#81c3d7" Foreground="#FF0F2038" Margin="0,5,0,5" Height="30" Click="ResidentsButton_Click" />
             <Button Content="Giving Key" Background="#cbf3f0" Foreground="#1d3557" Margin="0,5,0,5" Height="30" Click="KeyButton_Click" />
-            <Button Content="Declare state Machines" Background="#81c3d7" Foreground="#FF0F2038" Margin="0,5,0,5" Height="30" />
+            <Button Content="Declare state Machines" Background="#81c3d7" Foreground="#FF0F2038" Margin="0,5,0,5" Height="30" Click="MachineStateButton_Click" />
             <Button Content="Daily report" Background="#cbf3f0" Foreground="#1d3557" Margin="0,5,0,5" Height="30" />
         </StackPanel>
         <!-- Content Area -->
