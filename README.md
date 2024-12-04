@@ -37,10 +37,6 @@ Note : The order can be inverted BUT it can lead to slowing down computer on bad
 - **Error Handling and Notifications**: Add user feedback for successful actions or errors to improve usability.
 - **Add user features** : Such as their profile, their stat, but also guides related to resident or building and machine usage.
 
-# 02/12/2024 - Fix to do : 
-
-- Manager side, the connection to the data has been compromised. I (Aline) will work on it soon.
-
 
 Author : Aline (Haya-2)  
 Co-author : Cassandra (ks0214)
