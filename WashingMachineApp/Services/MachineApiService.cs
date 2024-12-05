@@ -29,7 +29,7 @@ namespace Washin.App.Services
         }*/
         public async Task<List<Machine>> GetMachineAsync(int buildingId)
         {
-            var response = await _httpClient.GetAsync($"api/machine/{buildingId}");
+            var response = await _httpClient.GetAsync($"api/building/{buildingId}/machines");
             response.EnsureSuccessStatusCode(); 
 
             var machineJson = await response.Content.ReadAsStringAsync(); 

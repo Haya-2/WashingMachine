@@ -38,7 +38,7 @@ namespace WashinApi.Controllers
                 return NotFound();
             }
 
-            machine.userId = userId;
+            machine.UserId = userId;
             _context.SaveChanges();
 
             return NoContent();

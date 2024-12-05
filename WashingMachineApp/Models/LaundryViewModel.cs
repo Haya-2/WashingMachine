@@ -134,8 +134,10 @@ public class LaundryViewModel : INotifyPropertyChanged
             WaitingTimeEstimate = 20.0; // Placeholder
 
             // Fetch data from the API
+
             var apiMachines = await _machineApiService.GetMachineAsync(buildingId);
             Machines.Clear();
+            
             foreach (var apiMachine in apiMachines)
             {
                 var machine = new Machine();

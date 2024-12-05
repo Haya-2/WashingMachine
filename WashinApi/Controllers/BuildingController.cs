@@ -114,9 +114,9 @@ namespace WashinApi.Controllers
             return Ok(residents);
         }
 
-        // GET: api/building/1/residents
+        // GET: api/building/1/machines
 
-        [HttpGet("building/{Id_Building}/machines")]
+        [HttpGet("{Id_Building}/machines")]
         public async Task<IActionResult> GetMachines(int Id_Building)
         {
             var machines = _context.Machines
