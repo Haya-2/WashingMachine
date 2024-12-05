@@ -21,8 +21,12 @@
             </LinearGradientBrush>
         </Grid.Background>
         <StackPanel HorizontalAlignment="Center" Margin="10">
+            <!-- DEBUG -->
+            <!-- <TextBlock Text="{Binding LaundryViewModel}" />
+            <TextBlock Text="{Binding LaundryViewModel.Machines.Count}" /> -->
             <!-- Machines List -->
-            <ListView ItemsSource="{Binding LaundryViewModel.Machines}" Margin="10">
+            <ListView ItemsSource="{Binding LaundryViewModel.Machines}" 
+                      SelectedItem="{Binding SelectedMachine}"  Margin="10">
                 <ListView.View>
                     <GridView>
                         <!-- Machine ID Column -->
@@ -51,15 +55,24 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        
+
+                        <!-- DEBUG Column -->
+                        <!-- <GridViewColumn Header="DEBUG">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn> -->
+
                         <!-- Change state Column -->
                         <GridViewColumn Header="Change State">
                             <GridViewColumn.CellTemplate>
+
                                 <DataTemplate>
                                     <Button Content="Change State" Background="#FF8B5CE6" Foreground="White"
-                                    Command="{Binding ChangeMachineStateCommand}"
-                                    CommandParameter="{Binding}" 
-                                    Margin="0,0,10,0"/>
+                                    Command="{Binding DataContext.ChangeMachineStateICommand}"
+                                    Margin="0,0,0,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

@@ -15,6 +15,18 @@ public class LaundryViewModel : INotifyPropertyChanged
     private double _waitingTimeEstimate;
     public ObservableCollection<Machine> Machines { get; set; } = new ObservableCollection<Machine>();
 
+    private Machine _selectedMachine;
+    public Machine SelectedMachine
+    {
+        get => _selectedMachine;
+        set
+        {
+            _selectedMachine = value;
+            OnPropertyChanged(nameof(SelectedMachine));
+            // Notify that ChangeMachineStateCommand might need reevaluation
+            CommandManager.InvalidateRequerySuggested();
+        }
+    }
     public string MachineState
     {
         get { return _machineState; }
@@ -104,18 +116,22 @@ public class LaundryViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(Machines));
         }
     }*/
-    public RelayCommand ChangeMachineStateCommand { get; }
+    //public RelayCommand ChangeMachineStateCommand { get; }
+    public ICommand ChangeMachineStateICommand { get; }
 
     public LaundryViewModel()
     {
         _machineApiService = new MachineApiService();
 
         // Initialize commands
-        ChangeMachineStateCommand = new RelayCommand(() => ChangeMachineState());
+        //ChangeMachineStateCommand = new RelayCommand(() => ChangeMachineState(selectedMachine));
+        ChangeMachineStateICommand = new RelayCommand(() => ChangeMachineState(SelectedMachine), () => SelectedMachine != null); 
+
     }
 
     private async void ChangeMachineState(Machine machine)
     {
+        Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
         if (machine == null) return;
 
         try
@@ -125,6 +141,7 @@ public class LaundryViewModel : INotifyPropertyChanged
 
             // Call the API to update the machine status
             await _machineApiService.UpdateMachineStatusAsync(machine.Id, machine.UserId);
+            Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
 
             // Notify UI of property changes (if needed)
             OnPropertyChanged(nameof(Machines));
@@ -176,16 +193,11 @@ public class LaundryViewModel : INotifyPropertyChanged
                 machine.Id_Building = apiMachine.Id_Building;
                 machine.UserId = apiMachine.UserId;
 
-                machine.Id = 99;
-                machine.IsWorking = true;
-                machine.Id_Building = 55;
-                machine.UserId = 99;
-
                 Console.WriteLine(machine);
                 Machines.Add(machine);
+
+                Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
             }
-            Machines.Add(new Machine { Id = 99, Id_Building = 101, IsWorking = true, UserId = 1 });
-            Machines.Add(new Machine { Id = 98, Id_Building = 102, IsWorking = false, UserId = 2 }); 
 
             // Fetch available machines for the building
             //var machines = await _machineApiService.GetMachineAsync(buildingId);
@@ -203,37 +215,6 @@ public class LaundryViewModel : INotifyPropertyChanged
     protected void OnPropertyChanged(string name)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
-    private async void ChangeMachineState()
-    {
-        try
-        {
-            // Example: Change the state of the first machine in the list for simplicity
-            if (Machines.Count == 0)
-            {
-                MessageBox.Show("No machines available to update.");
-                return;
-            }
-
-            // For demonstration, pick the first machine or modify this logic as needed
-            var machine = Machines.FirstOrDefault();
-
-            if (machine != null)
-            {
-                // Toggle the machine state (e.g., if IsWorking is true, make it false, and vice versa)
-                machine.IsWorking = !machine.IsWorking;
-
-                // Call the API to update the machine's state
-                await _machineApiService.UpdateMachineStatusAsync(machine.Id, machine.IsWorking ? null : machine.UserId);
-
-                // Notify UI to refresh bindings
-                OnPropertyChanged(nameof(Machines));
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error changing machine state: {ex.Message}");
-        }
     }
 
 }
