@@ -51,6 +51,18 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        
+                        <!-- Change state Column -->
+                        <GridViewColumn Header="Change State">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Change State" Background="#FF8B5CE6" Foreground="White"
+                                    Command="{Binding ChangeMachineStateCommand}"
+                                    CommandParameter="{Binding}" 
+                                    Margin="0,0,10,0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

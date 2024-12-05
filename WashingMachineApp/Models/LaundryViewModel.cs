@@ -2,6 +2,9 @@
 using System.ComponentModel;
 using System.Reflection.PortableExecutable;
 using Washin.App.Services;
+using System.Windows.Input;
+using System.Windows;
+
 
 public class LaundryViewModel : INotifyPropertyChanged
 {
@@ -101,9 +104,36 @@ public class LaundryViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(Machines));
         }
     }*/
+    public RelayCommand ChangeMachineStateCommand { get; }
+
     public LaundryViewModel()
     {
         _machineApiService = new MachineApiService();
+
+        // Initialize commands
+        ChangeMachineStateCommand = new RelayCommand(() => ChangeMachineState());
+    }
+
+    private async void ChangeMachineState(Machine machine)
+    {
+        if (machine == null) return;
+
+        try
+        {
+            // Toggle the IsWorking state 
+            machine.IsWorking = !machine.IsWorking;
+
+            // Call the API to update the machine status
+            await _machineApiService.UpdateMachineStatusAsync(machine.Id, machine.UserId);
+
+            // Notify UI of property changes (if needed)
+            OnPropertyChanged(nameof(Machines));
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions (log, show error message, etc.)
+            Console.WriteLine($"Error changing machine state: {ex.Message}");
+        }
     }
 
     // Asynchronous initialization method
@@ -174,6 +204,38 @@ public class LaundryViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+    private async void ChangeMachineState()
+    {
+        try
+        {
+            // Example: Change the state of the first machine in the list for simplicity
+            if (Machines.Count == 0)
+            {
+                MessageBox.Show("No machines available to update.");
+                return;
+            }
+
+            // For demonstration, pick the first machine or modify this logic as needed
+            var machine = Machines.FirstOrDefault();
+
+            if (machine != null)
+            {
+                // Toggle the machine state (e.g., if IsWorking is true, make it false, and vice versa)
+                machine.IsWorking = !machine.IsWorking;
+
+                // Call the API to update the machine's state
+                await _machineApiService.UpdateMachineStatusAsync(machine.Id, machine.IsWorking ? null : machine.UserId);
+
+                // Notify UI to refresh bindings
+                OnPropertyChanged(nameof(Machines));
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error changing machine state: {ex.Message}");
+        }
+    }
+
 }
 
 
