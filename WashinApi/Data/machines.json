@@ -3,25 +3,25 @@
         "Id": 1,
         "IsWorking": true,
         "Id_Building": 1,
-        "UserId": -1
+        "UserId": null
     },
     {
         "Id": 2,
         "IsWorking": true,
         "Id_Building": 1,
-        "UserId": -1
+        "UserId": null
     },
     {
         "Id": 3,
         "IsWorking": true,
         "Id_Building": 2,
-        "UserId": -1
+        "UserId": null
     },
     {
         "Id": 4,
         "IsWorking": true,
         "Id_Building": 1,
-        "UserId": -1
+        "UserId": null
     },
     {
         "Id": 5,

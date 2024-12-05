@@ -182,5 +182,5 @@ public class Machine
     public int Id { get; set; }
     public bool IsWorking { get; set; }
     public int Id_Building { get; set; }
-    public int UserId { get; set; } 
+    public int? UserId { get; set; } 
 }
