@@ -1,0 +1,10 @@
+[
+    {
+        "Id_Building":1,
+        "Queue":[5]
+    },
+    {
+        "Id_Building":2,
+        "Queue":[1]
+    }
+]

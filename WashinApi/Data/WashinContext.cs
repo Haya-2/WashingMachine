@@ -8,6 +8,12 @@ using WashinApi.Models;
 
 namespace WashinApi.Data
 {
+    public class BuildingQueue
+    {
+        public int Id_Building { get; set; }
+        public List<int> Queue { get; set; }
+    }
+
     public class WashinContext : DbContext
     {
         public List<Building> Buildings { get; set; } = new();
@@ -50,6 +56,29 @@ namespace WashinApi.Data
             {
                 m.Building = Buildings.FirstOrDefault(b => b.Id == m.Id_Building);
             }
+
+            var queueData = File.ReadAllText("Data/queue.json");
+            var queues = System.Text.Json.JsonSerializer.Deserialize<List<BuildingQueue>>(queueData, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // Ignorer la casse
+            });
+            foreach (var q in queues)
+            {
+                var building=Buildings.FirstOrDefault(b => b.Id == q.Id_Building);
+                if (building!=null)
+                {
+                    foreach (var user_id in q.Queue)
+                    {
+                        User user = Users.FirstOrDefault(b => b.Id == user_id);
+                        if (user!=null && user.Id_Building==q.Id_Building)
+                        {
+                            building.Queue.Add(user);
+                        }
+                        
+                    }
+                }
+            }
+
         }
 
         public void SaveData()
