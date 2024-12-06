@@ -23,6 +23,7 @@ builder.Services.AddControllers();
 // Ajouter Swagger pour la documentation d'API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -35,11 +36,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// Map SignalR hub
+app.MapHub<WashinApi.Hub.QueueHub>("/queueHub");
 
 // Démarrer l'application
 app.Run();
-
-
 
 
 

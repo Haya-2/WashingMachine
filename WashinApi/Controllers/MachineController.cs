@@ -28,8 +28,8 @@ namespace WashinApi.Controllers
             return machine;
         }
 
-        // PUT: api/machine/5/updateStatus
-        [HttpPut("{machineId}/updateStatus")]
+        // PUT: api/machine/5/updateKeys
+        [HttpPut("{machineId}/updateKeys")]
         public IActionResult UpdateMachineStatus(int machineId, [FromBody] int? userId)
         {
             var machine = _context.Machines.FirstOrDefault(m => m.Id == machineId);
@@ -39,7 +39,26 @@ namespace WashinApi.Controllers
             }
 
             machine.UserId = userId;
-            _context.SaveChanges();
+            _context.SaveData();
+
+            return NoContent();
+        }
+
+        // PUT: api/machine/5/updateStatus
+        [HttpPut("{machineId}/updateStatus")]
+        public IActionResult UpdateMachineStatus(int machineId, [FromBody] bool status)
+        {
+            var machine = _context.Machines.FirstOrDefault(m => m.Id == machineId);
+            if (machine == null)
+            {
+                return NotFound();
+            }
+
+            // Update the machine's status
+            machine.IsWorking = status;
+
+            // Save changes back to the JSON file
+            _context.SaveData();
 
             return NoContent();
         }
