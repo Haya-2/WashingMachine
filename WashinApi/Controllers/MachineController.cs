@@ -30,7 +30,7 @@ namespace WashinApi.Controllers
 
         // PUT: api/machine/5/updateKeys
         [HttpPut("{machineId}/updateKeys")]
-        public IActionResult UpdateMachineStatus(int machineId, [FromBody] int? userId)
+        public IActionResult UpdateMachineKey(int machineId, [FromBody] int? userId)
         {
             var machine = _context.Machines.FirstOrDefault(m => m.Id == machineId);
             if (machine == null)
