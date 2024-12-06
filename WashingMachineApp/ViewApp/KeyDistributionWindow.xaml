@@ -22,35 +22,36 @@
                    Margin="0,0,0,10" />
 
         <!-- Table with Residents -->
-        <ListView ItemsSource="{Binding ManagerViewModel.Residents}">
+            <ListView ItemsSource="{Binding ManagerViewModel.Residents}" SelectedItem="{Binding ManagerViewModel.SelectedResident}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Login}" />
                     <!-- Current Time Column -->
-                    <GridViewColumn Header="Time" Width="100">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding ManagerViewModel.CurrentTimeStudent, StringFormat='{}{0:HH:mm:ss}'}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <!-- <GridViewColumn Header="Time" Width="100">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ManagerViewModel.CurrentTimeStudent, StringFormat='{}{0:HH:mm:ss}'}" />
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                    </GridViewColumn> -->
+                    
+                    <!-- Actions Column -->
                     <GridViewColumn Header="Actions" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <!-- Give Key Button -->
-                                    <Button Content="Give Key" Background="#ffa7c957" Foreground="White"
-                                            Command="{Binding DataContext.GiveKeyCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            CommandParameter="{Binding}" 
-                                            Margin="0,0,10,0"/>
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <!-- Give Key Button -->
+                                <Button Content="Give Key" Background="#ffa7c957" Foreground="White"
+                                        Command="{Binding DataContext.ManagerViewModel.GiveKeyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}" />
 
-                                    <!-- Kick Out Button -->
-                                    <Button Content="Kick Out" Background="#ffe63946" Foreground="White"
-                                            Command="{Binding DataContext.KickOutCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            CommandParameter="{Binding}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
+                                <!-- Kick Out Button -->
+                                <Button Content="Kick Out" Background="#ffe63946" Foreground="White"
+                                        Command="{Binding DataContext.ManagerViewModel.KickOutCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>

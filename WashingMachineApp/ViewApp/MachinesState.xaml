@@ -76,8 +76,7 @@
 
                                 <DataTemplate>
                                     <Button Content="Change State" Background="#FF8B5CE6" Foreground="White"
-                                    Command="{Binding DataContext.LaundryViewModel.ChangeMachineStateICommand, 
-                                     RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    Command="{Binding DataContext.LaundryViewModel.ChangeMachineStateICommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
