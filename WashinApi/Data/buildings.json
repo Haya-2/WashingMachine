@@ -1,10 +1,1 @@
-[
-    {
-        "Id": 1,
-        "Name": "Building A"
-    },
-    {
-        "Id": 2,
-        "Name": "Building B"
-    }
-]
+[{"Id":1,"Name":"Building A","Queue":[]},{"Id":2,"Name":"Building B","Queue":[]}]

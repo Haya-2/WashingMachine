@@ -25,9 +25,10 @@
         </Grid.Background>
         <StackPanel HorizontalAlignment="Center" Margin="10">
             <!-- DEBUG -->
-            <TextBlock Text="{Binding LaundryViewModel}" />
-            <TextBlock Text="{Binding LaundryViewModel.Machines.Count}" />
-            <!-- Machines List -->
+            <TextBlock Text="Please double click to change state (one to active button, one to validate action)." />
+            <TextBlock Text="{Binding LaundryViewModel.Machines.Count, StringFormat='Number of machines : {0}'}" />
+
+            
             <ListView ItemsSource="{Binding LaundryViewModel.Machines}" 
                       SelectedItem="{Binding LaundryViewModel.SelectedMachine}"  Margin="10">
                 <ListView.View>
