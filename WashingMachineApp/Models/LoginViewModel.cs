@@ -11,7 +11,7 @@ public class LoginViewModel
     public LoginViewModel()
     {
         _userApiService = new UserApiService();
-        LoginCommand = new RelayCommand(ExecuteLogin);
+        LoginCommand = new RelayCommandLogin(ExecuteLogin);
     }
 
     public string Username { get; set; }

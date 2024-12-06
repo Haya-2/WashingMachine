@@ -11,6 +11,9 @@
             <GradientStop Color="White" Offset="1"/>
         </LinearGradientBrush>
     </UserControl.Background>
+
+
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
@@ -22,11 +25,11 @@
         </Grid.Background>
         <StackPanel HorizontalAlignment="Center" Margin="10">
             <!-- DEBUG -->
-            <!-- <TextBlock Text="{Binding LaundryViewModel}" />
-            <TextBlock Text="{Binding LaundryViewModel.Machines.Count}" /> -->
+            <TextBlock Text="{Binding LaundryViewModel}" />
+            <TextBlock Text="{Binding LaundryViewModel.Machines.Count}" />
             <!-- Machines List -->
             <ListView ItemsSource="{Binding LaundryViewModel.Machines}" 
-                      SelectedItem="{Binding SelectedMachine}"  Margin="10">
+                      SelectedItem="{Binding LaundryViewModel.SelectedMachine}"  Margin="10">
                 <ListView.View>
                     <GridView>
                         <!-- Machine ID Column -->
@@ -57,13 +60,14 @@
                         </GridViewColumn>
 
                         <!-- DEBUG Column -->
-                        <!-- <GridViewColumn Header="DEBUG">
+                        <GridViewColumn Header="DEBUG">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                                    <TextBlock Text="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn> -->
+                        </GridViewColumn>
 
                         <!-- Change state Column -->
                         <GridViewColumn Header="Change State">
@@ -71,8 +75,9 @@
 
                                 <DataTemplate>
                                     <Button Content="Change State" Background="#FF8B5CE6" Foreground="White"
-                                    Command="{Binding DataContext.ChangeMachineStateICommand}"
-                                    Margin="0,0,0,0"/>
+                                    Command="{Binding DataContext.LaundryViewModel.ChangeMachineStateICommand, 
+                                     RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

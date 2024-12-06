@@ -116,7 +116,6 @@ public class LaundryViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(Machines));
         }
     }*/
-    //public RelayCommand ChangeMachineStateCommand { get; }
     public ICommand ChangeMachineStateICommand { get; }
 
     public LaundryViewModel()
@@ -124,8 +123,20 @@ public class LaundryViewModel : INotifyPropertyChanged
         _machineApiService = new MachineApiService();
 
         // Initialize commands
-        //ChangeMachineStateCommand = new RelayCommand(() => ChangeMachineState(selectedMachine));
-        ChangeMachineStateICommand = new RelayCommand(() => ChangeMachineState(SelectedMachine), () => SelectedMachine != null); 
+        var changeMachineStateCommand = new RelayCommand(
+            () => ChangeMachineState(SelectedMachine),
+            () => SelectedMachine != null
+        );
+        ChangeMachineStateICommand = changeMachineStateCommand;
+
+        // Subscribe to property changes to update command state
+        PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(SelectedMachine))
+            {
+                changeMachineStateCommand.RaiseCanExecuteChanged();
+            }
+        };
 
     }
 
