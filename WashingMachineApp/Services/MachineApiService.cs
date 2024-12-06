@@ -45,8 +45,7 @@ namespace Washin.App.Services
         // PUT: api/machine/5/updateStatus
         public async Task UpdateMachineStatusAsync(int machineId, bool b)
         {
-            var jsonData = new { b };
-            var response = await _httpClient.PutAsJsonAsync($"api/machine/{machineId}/updateStatus", jsonData);
+            var response = await _httpClient.PutAsJsonAsync($"api/machine/{machineId}/updateStatus", b);
             response.EnsureSuccessStatusCode();
         }
     }
