@@ -147,15 +147,10 @@ public class LaundryViewModel : INotifyPropertyChanged
 
         try
         {
-            // Toggle the IsWorking state 
             machine.IsWorking = !machine.IsWorking;
 
             // Call the API to update the machine status
-            await _machineApiService.UpdateMachineStatusAsync(machine.Id, machine.UserId);
-            Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
-
-            // Notify UI of property changes (if needed)
-            OnPropertyChanged(nameof(Machines));
+            await _machineApiService.UpdateMachineStatusAsync(machine.Id, machine.IsWorking);
         }
         catch (Exception ex)
         {
@@ -234,7 +229,28 @@ public class LaundryViewModel : INotifyPropertyChanged
 public class Machine
 {
     public int Id { get; set; }
-    public bool IsWorking { get; set; }
+    private bool _isWorking;
     public int Id_Building { get; set; }
-    public int? UserId { get; set; } 
+    public int? UserId { get; set; }
+
+    public bool IsWorking
+    {
+        get => _isWorking;
+        set
+        {
+            if (_isWorking != value)
+            {
+                _isWorking = value;
+                OnPropertyChanged(nameof(IsWorking));
+            }
+        }
+    }
+
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }
