@@ -9,7 +9,7 @@ The app's also have a resident side where they can see usefull informations star
 ### Current Limitations 
 
 - **Login Feature**: The login functionality should be fully operational. There is still some error cases that hasn't been tested. There are buttons to navigate for now, so everything is accessible.
-- **Button Functionality**: Some buttons, such as "Give Key" and "Kick Out," have not yet been implemented with corresponding commands or actions. There is also the "Declare state Machines" as well as "Daily repport". The latter will be a json of all the mouvement for the machines, so the manager can use this to ensure residents will pay for the machine.
+- **Button Functionality**: "Daily repport" isn't implemented. This should have been a json of all the mouvement for the machines, so the manager can use this to ensure residents will pay for the machine. Some Resident Side button doesn't work. 
 
 ## Setup Instructions
 
@@ -33,8 +33,6 @@ Note : The order can be inverted BUT it can lead to slowing down computer on bad
 
 ## Future Enhancements
 
-- **Button Functionality**: Implement the actions for "Give Key" and "Kick Out" buttons, allowing managers to effectively control the washing machine access queue.
-- **Error Handling and Notifications**: Add user feedback for successful actions or errors to improve usability.
 - **Add user features** : Such as their profile, their stat, but also guides related to resident or building and machine usage.
 
 
