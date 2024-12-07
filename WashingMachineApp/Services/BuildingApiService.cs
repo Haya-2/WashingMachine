@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Washin.App.Services
@@ -27,11 +28,20 @@ namespace Washin.App.Services
         }
 
         // GET: api/building/1/queue
-        public async Task<string> GetQueueAsync(int buildingId)
+        public async Task<List<Resident>> GetQueueAsync(int buildingId)
         {
             var response = await _httpClient.GetAsync($"api/building/{buildingId}/queue");
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            // Désérialiser le contenu JSON en List<User>
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var queue = JsonSerializer.Deserialize<List<Resident>>(jsonString, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true
+            });
+
+            return queue;
+
         }
 
         // POST: api/building/1/addToQueue

@@ -11,6 +11,7 @@ public class ManagerViewModel
     private readonly MachineApiService _machineApiService;
     private readonly UserApiService _userApiService;
     public ObservableCollection<Resident> Residents { get; set; } = new ObservableCollection<Resident>();
+    public ObservableCollection<Resident> Queue { get; set; } = new ObservableCollection<Resident>();
 
     public int AvailableMachines { get; set; }
 
@@ -117,6 +118,22 @@ public class ManagerViewModel
 
                 Console.WriteLine(resident);
                 Residents.Add(resident);
+            }
+
+            var apiQueue = await _buildingApiService.GetQueueAsync(buildingId);
+            Queue.Clear();
+            foreach (var apiResident in apiQueue)
+            {
+                var resident = new Resident();
+                resident.Login = apiResident.Login;
+                resident.Password = apiResident.Password;
+                resident.Surname = apiResident.Surname;
+                resident.Name = apiResident.Name;
+                resident.IsManager = apiResident.IsManager;
+                resident.Id_Building = apiResident.Id_Building;
+
+                Console.WriteLine(resident);
+                Queue.Add(resident);
             }
 
             // Fetch available machines for the building

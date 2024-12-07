@@ -22,7 +22,7 @@
                    Margin="0,0,0,10" />
 
         <!-- Table with Residents -->
-            <ListView ItemsSource="{Binding ManagerViewModel.Residents}" SelectedItem="{Binding ManagerViewModel.SelectedResident}">
+            <ListView ItemsSource="{Binding ManagerViewModel.Queue}" SelectedItem="{Binding ManagerViewModel.SelectedResident}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Login}" />
