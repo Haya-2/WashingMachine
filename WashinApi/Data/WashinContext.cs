@@ -70,9 +70,12 @@ namespace WashinApi.Data
                     foreach (var user_id in q.Queue)
                     {
                         User user = Users.FirstOrDefault(b => b.Id == user_id);
-                        if (user!=null && user.Id_Building==q.Id_Building)
+                        if (user!=null && user.Id_Building==q.Id_Building )
                         {
-                            building.Queue.Add(user);
+                            if (!building.Queue.Any(u => u.Id == user.Id))
+                            {
+                                building.Queue.Add(user);
+                            }
                         }
                         
                     }
