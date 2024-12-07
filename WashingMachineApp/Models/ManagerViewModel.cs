@@ -90,20 +90,27 @@ public class ManagerViewModel
                 return;
             }
             // Assign the machine
-            var machineToAssign = Machines.FirstOrDefault(machine => machine.UserId == null);
-            if (machineToAssign != null)
+            //var machineToAssign = Machines.FirstOrDefault(machine => machine.UserId == null);
+            foreach (var machineToAssign in Machines)
             {
-                machineToAssign.UserId = resident.Id;
-                await _machineApiService.UpdateMachineKeysAsync(buildingId, resident.Id);
+                if ((machineToAssign.UserId == null) && (machineToAssign.IsWorking == true))
+                {
+                    machineToAssign.UserId = resident.Id;
+                    await _machineApiService.UpdateMachineKeysAsync(machineToAssign.Id, resident.Id);
+                    // Call API to remove the resident from the queue
+                    await _buildingApiService.RemoveFromQueueAsync(buildingId, resident.Id);
+                    Queue.Remove(resident); // Remove from Queue
+                    ReloadQueue();
+                    PeopleInQueue--;
+                    // Decrease available machines count
+                    AvailableMachines--;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine(machineToAssign.Id);
+                }
             }
-            // Call API to remove the resident from the queue
-            await _buildingApiService.RemoveFromQueueAsync(buildingId, resident.Id);
-            Queue.Remove(resident); // Remove from Queue
-            ReloadQueue();
-            PeopleInQueue--;
-            // Decrease available machines count
-            AvailableMachines--;
-            // MessageBox.Show($"Key successfully given to {resident.Login}");
         }
         catch (Exception ex)
         {
@@ -156,6 +163,7 @@ public class ManagerViewModel
             foreach (var apiResident in apiResidents)
             {
                 var resident = new Resident();
+                resident.Id = apiResident.Id;
                 resident.Login = apiResident.Login;
                 resident.Password = apiResident.Password;
                 resident.Surname = apiResident.Surname;
@@ -172,6 +180,7 @@ public class ManagerViewModel
             foreach (var apiResident in apiQueue)
             {
                 var resident = new Resident();
+                resident.Id = apiResident.Id;
                 resident.Login = apiResident.Login;
                 resident.Password = apiResident.Password;
                 resident.Surname = apiResident.Surname;
@@ -202,7 +211,11 @@ public class ManagerViewModel
                 Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
             }
 
-            AvailableMachines = Machines.Count(machine => machine.UserId == null);
+            AvailableMachines = 0;
+            foreach (var machine in Machines)
+            {
+                if ((machine.UserId == null) && (machine.IsWorking == true)) AvailableMachines++;
+            }
 
         }
         catch (Exception e)
@@ -230,6 +243,7 @@ public class ManagerViewModel
     }
 
 }
+
 public class Resident
 {
     public int Id { get; set; }   

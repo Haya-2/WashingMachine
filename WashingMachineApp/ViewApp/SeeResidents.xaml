@@ -20,6 +20,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Login}" />
+
                         <!-- Current Time Column -->
                         <GridViewColumn Header="Time" Width="100">
                             <GridViewColumn.CellTemplate>
@@ -28,6 +29,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        
                         <GridViewColumn Header="Time of End" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

@@ -11,9 +11,6 @@
             <GradientStop Color="White" Offset="1"/>
         </LinearGradientBrush>
     </UserControl.Background>
-
-
-
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
@@ -35,15 +32,12 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <!-- <TextBlock Text="{Binding LaundryViewModel.Machines.Count, StringFormat='Number of machines : {0}'}" /> -->
-
-            
             <ListView ItemsSource="{Binding LaundryViewModel.Machines}" 
                       SelectedItem="{Binding LaundryViewModel.SelectedMachine}"  Margin="10">
                 <ListView.View>
                     <GridView>
                         <!-- Machine ID Column -->
-                        <GridViewColumn Header="Machine ID" Width="70">
+                        <GridViewColumn Header="Machine ID" Width="65">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Id}" />
@@ -52,7 +46,7 @@
                         </GridViewColumn>
 
                         <!-- Is Working Column -->
-                        <GridViewColumn Header="Is Working" Width="100">
+                        <GridViewColumn Header="Is Working" Width="70">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding IsWorking}" />

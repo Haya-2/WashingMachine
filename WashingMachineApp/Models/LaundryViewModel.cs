@@ -205,7 +205,7 @@ public class LaundryViewModel : INotifyPropertyChanged
                 MachinesNb++;
                 if (machine.IsWorking) MachineWorking++;
                 if (machine.IsWorking == false ) MachineNotWorking++;
-                if (machine.UserId == null) AvailableMachines++;
+                if ((machine.UserId == null) && (machine.IsWorking)) AvailableMachines++;
             }
             // Fetch available machines for the building
             //var machines = await _machineApiService.GetMachineAsync(buildingId);
