@@ -26,7 +26,16 @@
         <StackPanel HorizontalAlignment="Center" Margin="10">
             <!-- DEBUG -->
             <TextBlock Text="Please double click to change state (one to active button, one to validate action)." />
-            <TextBlock Text="{Binding LaundryViewModel.Machines.Count, StringFormat='Number of machines : {0}'}" />
+            <TextBlock Text="Ignore if button is already active." />
+            <TextBlock FontSize="16" FontWeight="Bold" Foreground="#1d3557">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="There are {0} machines and {1} working in total.">
+                        <Binding Path="LaundryViewModel.Machines.Count" />
+                        <Binding Path="LaundryViewModel.MachineWorking" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <!-- <TextBlock Text="{Binding LaundryViewModel.Machines.Count, StringFormat='Number of machines : {0}'}" /> -->
 
             
             <ListView ItemsSource="{Binding LaundryViewModel.Machines}" 
@@ -61,14 +70,14 @@
                         </GridViewColumn>
 
                         <!-- DEBUG Column -->
-                        <GridViewColumn Header="DEBUG">
+                        <!-- <GridViewColumn Header="DEBUG">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                        </GridViewColumn> -->
 
                         <!-- Change state Column -->
                         <GridViewColumn Header="Change State">

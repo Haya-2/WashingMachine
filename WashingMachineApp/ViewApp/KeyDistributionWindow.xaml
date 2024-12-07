@@ -16,8 +16,9 @@
         </Grid.Background>
         <StackPanel HorizontalAlignment="Center" Margin="10">
 
-        <!-- Display number of available machines -->
-        <TextBlock Text="{Binding LaundryViewModel.MachineWorking, StringFormat='Available Machines: {0}'}"
+            <!-- Display number of available machines -->
+            <TextBlock Text="Please double click to change state (one to active button, one to validate action)." />
+            <TextBlock Text="{Binding LaundryViewModel.MachineWorking, StringFormat='Available Machines: {0}'}"
                    FontSize="16" FontWeight="Bold"
                    Margin="0,0,0,10" />
 

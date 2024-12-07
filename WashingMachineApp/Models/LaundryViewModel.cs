@@ -11,7 +11,7 @@ public class LaundryViewModel : INotifyPropertyChanged
     private readonly MachineApiService _machineApiService;
     private readonly BuildingApiService _buildingApiService;
     private string _machineState;
-    private int _nbPeopleInQueue, _nbMachine, _nbMachineWorking, _nbMachineNotW, _nbPeopleBeforeMeInQueue, _nbMachineAvailable;
+    private int _nbMachine, _nbMachineWorking, _nbMachineNotW, _nbPeopleBeforeMeInQueue, _nbMachineAvailable;
     private double _waitingTimeEstimate;
     public ObservableCollection<Machine> Machines { get; set; } = new ObservableCollection<Machine>();
 
@@ -34,16 +34,6 @@ public class LaundryViewModel : INotifyPropertyChanged
         {
             _machineState = value;
             OnPropertyChanged(nameof(MachineState));
-        }
-    }
-
-    public int PeopleInQueue
-    {
-        get { return _nbPeopleInQueue; }
-        set
-        {
-            _nbPeopleInQueue = value;
-            OnPropertyChanged(nameof(PeopleInQueue));
         }
     }
 
@@ -178,7 +168,6 @@ public class LaundryViewModel : INotifyPropertyChanged
             // Parse and update data (replace these placeholders with actual data)
             MachineAvailable = 999;
             MachineWorking = 999;
-            PeopleInQueue = 999;
 
             // Set a default machine state
             MachineState = (MachineAvailable > 0) ? "State: Washing machine available" : "State: No washing machines available";
@@ -205,6 +194,16 @@ public class LaundryViewModel : INotifyPropertyChanged
                 Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
             }
 
+            MachineWorking = 0; MachineNotWorking = 0;
+            MachinesNb = 0;
+            MachineAvailable = 0;
+            foreach (var machine in Machines)
+            {
+                MachinesNb++;
+                if (machine.IsWorking) MachineWorking++;
+                if (machine.IsWorking == false ) MachineNotWorking++;
+                if (machine.UserId == null) MachineAvailable++;
+            }
             // Fetch available machines for the building
             //var machines = await _machineApiService.GetMachineAsync(buildingId);
 

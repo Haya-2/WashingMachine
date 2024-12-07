@@ -31,13 +31,13 @@
             <TextBlock FontSize="16" FontWeight="Bold" Foreground="#1d3557">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="There are {0} machines available and {1} working in total.">
-                        <Binding Path="MachineAvailable" />
-                        <Binding Path="MachineWorking" />
+                        <Binding Path="LaundryViewModel.MachineAvailable" />
+                        <Binding Path="LaundryViewModel.MachineWorking" />
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
 
-            <TextBlock Text="{Binding PeopleInQueue, StringFormat='There are {0} residents in the queue'}" 
+            <TextBlock Text="{Binding ManagerViewModel.Queue.Count, StringFormat='There are {0} residents in the queue'}" 
                        FontSize="16" FontWeight="Bold" Foreground="#1d3557" />
         </StackPanel>
 

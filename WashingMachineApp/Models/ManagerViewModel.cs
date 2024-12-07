@@ -10,6 +10,7 @@ public class ManagerViewModel
     private readonly BuildingApiService _buildingApiService;
     private readonly MachineApiService _machineApiService;
     private readonly UserApiService _userApiService;
+    private int _nbPeopleInQueue;
     public ObservableCollection<Resident> Residents { get; set; } = new ObservableCollection<Resident>();
     public ObservableCollection<Resident> Queue { get; set; } = new ObservableCollection<Resident>();
 
@@ -30,11 +31,20 @@ public class ManagerViewModel
             CommandManager.InvalidateRequerySuggested();
         }
     }
+    public int PeopleInQueue
+    {
+        get { return _nbPeopleInQueue; }
+        set
+        {
+            _nbPeopleInQueue = value;
+            OnPropertyChanged(nameof(PeopleInQueue));
+        }
+    }
 
     public ManagerViewModel()
     {
 
-    _buildingApiService = new BuildingApiService();
+        _buildingApiService = new BuildingApiService();
         _userApiService = new UserApiService();
         _machineApiService = new MachineApiService();
 
@@ -55,12 +65,13 @@ public class ManagerViewModel
         if (resident == null) { return; }
         try
         {
-            // Call API to add the resident to the queue
-            await _userApiService.RemoveFromQueueAsync(resident.Id);
-            Residents.Remove(resident); // Remove the resident from the UI list
-
-            // Optional: Update the resident list or machine state
-            MessageBox.Show($"Key successfully given to {resident.Login}");
+            int buildingId = 1;
+            // Call API to remove the resident from the queue
+            await _buildingApiService.RemoveFromQueueAsync(buildingId, resident.Id);
+            Queue.Remove(resident); // Remove from Queue
+            ReloadQueue();
+            //PeopleInQueue--;
+            // MessageBox.Show($"Key successfully given to {resident.Login}");
         }
         catch (Exception ex)
         {
@@ -73,12 +84,15 @@ public class ManagerViewModel
         if (resident == null) { return; }
         try
         {
+            int buildingId = 1;
             // Call API to remove the resident from the queue
-            await _userApiService.RemoveFromQueueAsync(resident.Id);
+            await _buildingApiService.RemoveFromQueueAsync(buildingId, resident.Id);
 
             // Optional: Update the resident list or machine state
-            Residents.Remove(resident); // Remove the resident from the UI list
-            MessageBox.Show($"Resident {resident.Login} has been kicked out.");
+            Queue.Remove(resident); // Remove from Queue
+            ReloadQueue();
+            //PeopleInQueue--;
+            //MessageBox.Show($"Resident {resident.Login} has been kicked out.");
         }
         catch (Exception ex)
         {
@@ -102,6 +116,7 @@ public class ManagerViewModel
         try
         {
             int buildingId = 1;
+            //PeopleInQueue = 0;
 
             // Fetch data from the API
             var apiResidents = await _userApiService.GetResidentsAsync(buildingId);
@@ -131,6 +146,7 @@ public class ManagerViewModel
                 resident.Name = apiResident.Name;
                 resident.IsManager = apiResident.IsManager;
                 resident.Id_Building = apiResident.Id_Building;
+                //PeopleInQueue++;
 
                 Console.WriteLine(resident);
                 Queue.Add(resident);
@@ -146,6 +162,24 @@ public class ManagerViewModel
             Console.WriteLine("hello");
         }
     }
+    private async Task ReloadQueue()
+    {
+        try
+        {
+            int buildingId = 1;
+            var updatedQueue = await _buildingApiService.GetQueueAsync(buildingId);
+            Queue.Clear();
+            foreach (var resident in updatedQueue)
+            {
+                Queue.Add(resident);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error reloading queue: {ex.Message}");
+        }
+    }
+
 }
 public class Resident
 {

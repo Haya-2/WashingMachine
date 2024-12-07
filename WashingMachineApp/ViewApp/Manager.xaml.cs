@@ -23,7 +23,8 @@ namespace WashingMachine
         public Manager()
         {
             InitializeComponent();
-            DataContext = App.LaundryViewModel;
+            DataContext = new CombinedViewModel(new ManagerViewModel(), App.LaundryViewModel);
+            //DataContext = App.LaundryViewModel;
         }
         private void KeyButton_Click(object sender, RoutedEventArgs e)
         {
