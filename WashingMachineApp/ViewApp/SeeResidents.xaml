@@ -6,12 +6,11 @@
         xmlns:local="clr-namespace:WashingMachine.ViewModels"
         mc:Ignorable="d">
     <Grid>
+        <!--Color (Gradient) -->
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
                 <GradientStop Color="#a3b18a" Offset="0.0" />
-                <!-- Light green -->
                 <GradientStop Color="#588157" Offset="1.0" />
-                <!-- Darker green -->
             </LinearGradientBrush>
         </Grid.Background>
         <StackPanel HorizontalAlignment="Center" Margin="10">

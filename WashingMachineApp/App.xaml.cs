@@ -14,7 +14,7 @@ namespace WashingMachine
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            //var mainWindow = new Login(); // Start with Home screen
+            //var mainWindow = new Login(); // Start with Home screen, un comment to start two instances
             //mainWindow.Show();
         }
     }

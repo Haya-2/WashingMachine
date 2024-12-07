@@ -17,6 +17,10 @@ namespace WashingMachine.Views
     /// </summary>
     public partial class SeeResidents : UserControl
     {
+        /// <summary>
+        /// A reference to the parent Manager window that contains this control.
+        /// This allows navigation back to the Manager interface.
+        /// </summary>
         private readonly Manager _managerWindow;
         public SeeResidents(Manager manager)
         {
@@ -25,6 +29,12 @@ namespace WashingMachine.Views
             DataContext = new CombinedViewModel(new ManagerViewModel(), App.LaundryViewModel);
         }
 
+        /// <summary>
+        /// Event handler for the "Return to Manager" button.
+        /// Clears the content of the Manager's MainContent frame, effectively returning to the main Manager interface.
+        /// </summary>
+        /// <param name="sender">The source of the button click event.</param>
+        /// <param name="e">Event arguments containing event data.</param>
         private void ReturnToManager_Click(object sender, RoutedEventArgs e)
         {
             _managerWindow.MainContent.Content = null;
