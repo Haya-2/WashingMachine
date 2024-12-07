@@ -39,6 +39,11 @@ namespace WashinApi.Controllers
             }
 
             machine.UserId = userId;
+            if (userId)
+            {
+                var building = _context.Buildings.FirstOrDefault(m => m.Id == machine.Id_Building);
+                building.Queue.Remove(u => u.id == userId);
+            }
             _context.SaveData();
 
             return NoContent();

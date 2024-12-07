@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Net;
 using WashinApi.Data;
 using WashinApi.Models;
+using Microsoft.AspNetCore.SignalR;
+using WashinApi.Hub;
 
 namespace WashinApi.Controllers
 {
@@ -12,10 +14,12 @@ namespace WashinApi.Controllers
     public class BuildingController : ControllerBase
     {
         private readonly WashinContext _context;
+        private readonly IHubContext<QueueHub> _hubContext;
 
-        public BuildingController(WashinContext context)
+        public BuildingController(WashinContext context, IHubContext<QueueHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         // GET: api/building/1
@@ -52,6 +56,7 @@ namespace WashinApi.Controllers
             {
                 building.Queue.Add(user);
                 _context.SaveData();
+                _hubContext.Clients.Group($"Building_{Id_Building}").SendAsync("QueueUpdated", building.Queue);
             }
 
             return Ok();
@@ -72,6 +77,7 @@ namespace WashinApi.Controllers
             {
                 building.Queue.Remove(userInQueue);
                 _context.SaveData();
+                _hubContext.Clients.Group($"Building_{Id_Building}").SendAsync("QueueUpdated", building.Queue);
             }
 
             return Ok();

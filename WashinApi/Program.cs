@@ -37,7 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 // Map SignalR hub
-//app.MapHub<WashinApi.Hub.QueueHub>("/queueHub");
+app.MapHub<WashinApi.Hub.QueueHub>("/queueHub");
 
 // Démarrer l'application
 app.Run();

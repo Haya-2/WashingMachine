@@ -1,1 +1,1 @@
-[{"Id":1,"Id_Building":1,"UserId":null,"IsWorking":true},{"Id":2,"Id_Building":1,"UserId":null,"IsWorking":false},{"Id":3,"Id_Building":2,"UserId":null,"IsWorking":true},{"Id":4,"Id_Building":1,"UserId":null,"IsWorking":false},{"Id":5,"Id_Building":2,"UserId":1,"IsWorking":true}]
+[{"Id":1,"Id_Building":1,"UserId":null,"IsWorking":false},{"Id":2,"Id_Building":1,"UserId":null,"IsWorking":true},{"Id":3,"Id_Building":2,"UserId":null,"IsWorking":true},{"Id":4,"Id_Building":1,"UserId":2,"IsWorking":true},{"Id":5,"Id_Building":2,"UserId":1,"IsWorking":true}]
