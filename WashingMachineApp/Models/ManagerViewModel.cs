@@ -62,6 +62,8 @@ public class ManagerViewModel
         _userApiService = new UserApiService();
         _machineApiService = new MachineApiService();
 
+        Machines = new ObservableCollection<Machine>();
+
         // Initialize commands
         GiveKeyCommand = new RelayCommandUser<Resident>(
             async _selecteResident => await GiveKey(_selecteResident),
@@ -81,8 +83,6 @@ public class ManagerViewModel
         {
             int buildingId = 1;
 
-
-            AvailableMachines = Machines.Count(machine => machine.UserId == null);
 
             if (AvailableMachines <= 0)
             {
@@ -185,7 +185,24 @@ public class ManagerViewModel
             }
 
             // Fetch available machines for the building
-            //var machines = await _machineApiService.GetMachineAsync(buildingId);
+            var apiMachines = await _machineApiService.GetMachineAsync(buildingId);
+            Machines.Clear();
+
+            foreach (var apiMachine in apiMachines)
+            {
+                var machine = new Machine();
+                machine.Id = apiMachine.Id;
+                machine.IsWorking = apiMachine.IsWorking;
+                machine.Id_Building = apiMachine.Id_Building;
+                machine.UserId = apiMachine.UserId;
+
+                Console.WriteLine(machine);
+                Machines.Add(machine);
+
+                Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
+            }
+
+            AvailableMachines = Machines.Count(machine => machine.UserId == null);
 
         }
         catch (Exception e)
@@ -222,16 +239,4 @@ public class Resident
     public string Name { get; set; }  
     public bool IsManager { get; set; }  
     public int Id_Building { get; set; } 
-
-    // Constructor for convenience
-//    public Resident(int id, string login, string password, string surname, string name, bool isManager, int idBuilding)
-//    {
-//        this.id = id;
-//        this.login = login;
-//        this.password = password;
-//        this.surname = surname;
-//        this.name = name;
-//        this.isManager = isManager;
-//        this.id_Building = idBuilding;
-//    }
 }
