@@ -12,9 +12,23 @@ public class ManagerViewModel
     private readonly UserApiService _userApiService;
     private int _nbPeopleInQueue;
     public ObservableCollection<Resident> Residents { get; set; } = new ObservableCollection<Resident>();
-    public ObservableCollection<Resident> Queue { get; set; } = new ObservableCollection<Resident>();
+    public ObservableCollection<Resident> Queue { get; set; } = new ObservableCollection<Resident>(); 
+    public ObservableCollection<Machine> Machines { get; set; }
 
-    public int AvailableMachines { get; set; }
+    private int _availableMachines;
+    public int AvailableMachines
+    {
+        get => _availableMachines;
+        set
+        {
+            if (_availableMachines != value)
+            {
+                _availableMachines = value;
+                OnPropertyChanged(nameof(AvailableMachines));
+            }
+        }
+    }
+
 
     public RelayCommandUser<Resident> GiveKeyCommand { get; private set; }
     public RelayCommandUser<Resident> KickOutCommand { get; private set; }
@@ -66,11 +80,29 @@ public class ManagerViewModel
         try
         {
             int buildingId = 1;
+
+
+            AvailableMachines = Machines.Count(machine => machine.UserId == null);
+
+            if (AvailableMachines <= 0)
+            {
+                MessageBox.Show("No available machines at the moment. Please wait.");
+                return;
+            }
+            // Assign the machine
+            var machineToAssign = Machines.FirstOrDefault(machine => machine.UserId == null);
+            if (machineToAssign != null)
+            {
+                machineToAssign.UserId = resident.Id;
+                await _machineApiService.UpdateMachineKeysAsync(buildingId, resident.Id);
+            }
             // Call API to remove the resident from the queue
             await _buildingApiService.RemoveFromQueueAsync(buildingId, resident.Id);
             Queue.Remove(resident); // Remove from Queue
             ReloadQueue();
-            //PeopleInQueue--;
+            PeopleInQueue--;
+            // Decrease available machines count
+            AvailableMachines--;
             // MessageBox.Show($"Key successfully given to {resident.Login}");
         }
         catch (Exception ex)
@@ -91,7 +123,7 @@ public class ManagerViewModel
             // Optional: Update the resident list or machine state
             Queue.Remove(resident); // Remove from Queue
             ReloadQueue();
-            //PeopleInQueue--;
+            PeopleInQueue--;
             //MessageBox.Show($"Resident {resident.Login} has been kicked out.");
         }
         catch (Exception ex)
@@ -116,7 +148,7 @@ public class ManagerViewModel
         try
         {
             int buildingId = 1;
-            //PeopleInQueue = 0;
+            PeopleInQueue = 0;
 
             // Fetch data from the API
             var apiResidents = await _userApiService.GetResidentsAsync(buildingId);
@@ -146,7 +178,7 @@ public class ManagerViewModel
                 resident.Name = apiResident.Name;
                 resident.IsManager = apiResident.IsManager;
                 resident.Id_Building = apiResident.Id_Building;
-                //PeopleInQueue++;
+                PeopleInQueue++;
 
                 Console.WriteLine(resident);
                 Queue.Add(resident);

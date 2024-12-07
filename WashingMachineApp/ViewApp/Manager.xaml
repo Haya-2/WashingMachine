@@ -31,7 +31,7 @@
             <TextBlock FontSize="16" FontWeight="Bold" Foreground="#1d3557">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="There are {0} machines available and {1} working in total.">
-                        <Binding Path="LaundryViewModel.MachineAvailable" />
+                        <Binding Path="LaundryViewModel.AvailableMachines" />
                         <Binding Path="LaundryViewModel.MachineWorking" />
                     </MultiBinding>
                 </TextBlock.Text>
