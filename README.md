@@ -8,7 +8,6 @@ The app's also have a resident side where they can see usefull informations star
 
 ### Current Limitations 
 
-- **Login Feature**: The login functionality should be fully operational. There is still some error cases that hasn't been tested. There are buttons to navigate for now, so everything is accessible.
 - **Button Functionality**: "Daily repport" isn't implemented. This should have been a json of all the mouvement for the machines, so the manager can use this to ensure residents will pay for the machine. Some Resident Side button doesn't work. 
 
 ## Setup Instructions
