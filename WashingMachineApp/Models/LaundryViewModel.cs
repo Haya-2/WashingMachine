@@ -5,9 +5,22 @@ using Washin.App.Services;
 using System.Windows.Input;
 using System.Windows;
 
-
+/// <summary>
+/// The LaundryViewModel class handles the business logic for managing laundry machines,
+/// their states, and relevant statistics in the building. It fetches data from API services 
+/// and provides functionalities for updating machine states and estimating waiting times.
+/// </summary>
+/// <remarks>
+/// This class follows the MVVM pattern and uses the INotifyPropertyChanged interface 
+/// to facilitate data binding with the UI. It supports asynchronous initialization 
+/// and command-based machine state changes.
+/// </remarks>
 public class LaundryViewModel : INotifyPropertyChanged
 {
+    /// <summary>
+    /// API service for managing machine-related data.
+    /// API service for fetching building-related data.
+    /// </summary>
     private readonly MachineApiService _machineApiService;
     private readonly BuildingApiService _buildingApiService;
     private string _machineState;
@@ -23,7 +36,6 @@ public class LaundryViewModel : INotifyPropertyChanged
         {
             _selectedMachine = value;
             OnPropertyChanged(nameof(SelectedMachine));
-            // Notify that ChangeMachineStateCommand might need reevaluation
             CommandManager.InvalidateRequerySuggested();
         }
     }
@@ -111,6 +123,10 @@ public class LaundryViewModel : INotifyPropertyChanged
     }*/
     public ICommand ChangeMachineStateICommand { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LaundryViewModel"/> class.
+    /// Sets up command bindings and subscribes to property change notifications.
+    /// </summary>
     public LaundryViewModel()
     {
         _machineApiService = new MachineApiService();
@@ -133,6 +149,14 @@ public class LaundryViewModel : INotifyPropertyChanged
 
     }
 
+    /// <summary>
+    /// Toggles the working state of a selected machine and updates the state via the API.
+    /// </summary>
+    /// <param name="machine">The machine whose state is to be changed.</param>
+    /// <remarks>
+    /// The method validates the input and ensures the API call succeeds, updating the machine's
+    /// working state both locally and remotely.
+    /// </remarks>
     private async void ChangeMachineState(Machine machine)
     {
         Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
@@ -147,12 +171,17 @@ public class LaundryViewModel : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            // Handle exceptions (log, show error message, etc.)
             Console.WriteLine($"Error changing machine state: {ex.Message}");
         }
     }
 
-    // Asynchronous initialization method
+    /// <summary>
+    /// Asynchronously initializes the view model by loading building and machine data from the API.
+    /// </summary>
+    /// <remarks>
+    /// This method fetches machine and queue data, calculates relevant statistics,
+    /// and updates the UI state accordingly.
+    /// </remarks>
     public async Task InitializeAsync()
     {
         await LoadBuildingDataAsync();
@@ -162,27 +191,16 @@ public class LaundryViewModel : INotifyPropertyChanged
     {
         try
         {
-            int buildingId = 1;
-
-            // Fetch data from the API
-            //var machinesData = await _buildingApiService.GetMachinesAsync(buildingId);
-            //var queueData = await _buildingApiService.GetQueueAsync(buildingId);
-
-            // Parse and update data (replace these placeholders with actual data)
-            AvailableMachines = 999;
-            MachineWorking = 999;
+            int buildingId = 1; // for now
 
             // Set a default machine state
-            MachineState = (AvailableMachines > 0) ? "State: Washing machine available" : "State: No washing machines available";
-
+            MachineState = (AvailableMachines > 0) ? "State: Washing machine available" : "State: No washing machines available"; // Placeholder
             // Estimate waiting time
             WaitingTimeEstimate = 20.0; // Placeholder
 
-            // Fetch data from the API
-
+            // Fetch data from the API - Machines
             var apiMachines = await _machineApiService.GetMachineAsync(buildingId);
             Machines.Clear();
-            
             foreach (var apiMachine in apiMachines)
             {
                 var machine = new Machine();
@@ -191,12 +209,12 @@ public class LaundryViewModel : INotifyPropertyChanged
                 machine.Id_Building = apiMachine.Id_Building;
                 machine.UserId = apiMachine.UserId;
 
-                Console.WriteLine(machine);
+                //Console.WriteLine(machine);
                 Machines.Add(machine);
-
-                Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
+                //Console.WriteLine($"Machine {machine.Id}: IsWorking updated to {machine.IsWorking}");
             }
 
+            // Assign var
             MachineWorking = 0; MachineNotWorking = 0;
             MachinesNb = 0;
             AvailableMachines = 0;
@@ -207,14 +225,10 @@ public class LaundryViewModel : INotifyPropertyChanged
                 if (machine.IsWorking == false ) MachineNotWorking++;
                 if ((machine.UserId == null) && (machine.IsWorking)) AvailableMachines++;
             }
-            // Fetch available machines for the building
-            //var machines = await _machineApiService.GetMachineAsync(buildingId);
-
         }
         catch (Exception e)
         {
-            // Handle any exceptions gracefully
-            Console.WriteLine("hello");
+            Console.WriteLine($"Error loading: {e.Message}");
         }
     }
 
@@ -227,14 +241,25 @@ public class LaundryViewModel : INotifyPropertyChanged
 
 }
 
-
+/// <summary>
+/// Represents a washing machine entity with properties for its state, building ID, and user association.
+/// </summary>
+/// <remarks>
+/// The Machine class implements the INotifyPropertyChanged interface for 
+/// updating UI components in response to changes in its properties.
+/// </remarks>
 public class Machine
 {
     public int Id { get; set; }
     private bool _isWorking;
     public int Id_Building { get; set; }
+
+    /// Identifier of the user currently using the machine, if any.
     public int? UserId { get; set; }
 
+    /// <summary>
+    /// Indicates whether the machine is operational.
+    /// </summary>
     public bool IsWorking
     {
         get => _isWorking;

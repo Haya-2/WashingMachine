@@ -12,8 +12,16 @@ using System.Windows.Shapes;
 namespace WashingMachine
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Represents the login interface for the Washing Machine application.
+    /// This window allows to connect to the app as :
+    /// - a resident
+    /// - a manager
     /// </summary>
+    /// 
+    /// <remarks>
+    /// This class sets the DataContext to <see cref="LoginViewModel"/>
+    /// This ViewModel was created especially for login.
+    /// </remarks>
     public partial class Login : Window
     {
         public Login()
@@ -21,6 +29,10 @@ namespace WashingMachine
             InitializeComponent();
             DataContext = new LoginViewModel();
         }
+
+        /// <summary>
+        /// DEBUG - Go to home without a login / password
+        /// </summary>
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             // Open the Home window
@@ -29,6 +41,9 @@ namespace WashingMachine
             this.Close(); // Close the Login window
         }
 
+        /// <summary>
+        /// DEBUG - Go to manager window without a login / password
+        /// </summary>
         private void ManagerButton_Click(object sender, RoutedEventArgs e)
         {
             // Open the Manager window

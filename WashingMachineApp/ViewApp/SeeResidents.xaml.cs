@@ -13,7 +13,14 @@ using WashingMachine.ViewModels;
 namespace WashingMachine.Views
 {
     /// <summary>
-    /// Interaction logic for SeeResidents.xaml
+    /// Represents the residents within the laundry system.
+    /// This view allows managers to monitor (view) current status of residents.
+    /// 
+    /// <remarks>
+    /// This class is part of the manager interface, and it is hosted within the main Manager window.
+    /// It uses a combined view model (<see cref="CombinedViewModel"/>) that aggregates 
+    /// <see cref="ManagerViewModel"/> and the global <see cref="App.LaundryViewModel"/>.
+    /// </remarks>
     /// </summary>
     public partial class SeeResidents : UserControl
     {

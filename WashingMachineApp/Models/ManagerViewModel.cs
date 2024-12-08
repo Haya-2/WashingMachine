@@ -13,7 +13,6 @@ using System.Reflection.PortableExecutable;
 /// This class interacts with API services to load data, update machine and resident states, and manage commands 
 /// for key distribution and queue handling. It also uses the MVVM pattern to bind data to the manager interface.
 /// </remarks>
-/// </summary>
 public class ManagerViewModel
 {
     /// <summary>
