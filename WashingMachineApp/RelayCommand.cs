@@ -1,6 +1,9 @@
 using System;
 using System.Windows.Input;
 
+/// <summary>
+/// RelayCommand for the MACHINES.
+/// </summary>
 public class RelayCommand : ICommand
 {
     private readonly Action _execute;
