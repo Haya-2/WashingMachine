@@ -9,7 +9,7 @@ namespace WashingMachine
     /// </summary>
     public partial class App : Application
     {
-        public static LaundryViewModel LaundryViewModel { get; } = new LaundryViewModel();
+        public static LaundryViewModel LaundryViewModel { get; } = new LaundryViewModel(null);
 
         protected override void OnStartup(StartupEventArgs e)
         {

@@ -23,7 +23,7 @@ namespace WashingMachine
         public Home()
         {
             InitializeComponent();
-            DataContext = App.LaundryViewModel;
+            DataContext = new LaundryViewModel(CurrentUser.UserId);
         }
 
         private void Button_Chrono(object sender, RoutedEventArgs e)
@@ -32,10 +32,15 @@ namespace WashingMachine
             MainContentHome.Content = chronoPage;
         }
 
-        private void Button_Queue(object sender, RoutedEventArgs e)
+        private async void Button_Queue(object sender, RoutedEventArgs e)
         {
-            HomeWait homeWaitPage = new HomeWait(this); // Pass `this` as the parent Home window
+            var viewModel = DataContext as LaundryViewModel;
+
+            await viewModel.ExecuteGetInQueue();
+
+            HomeWait homeWaitPage = new HomeWait(this,viewModel); // Pass `this` as the parent Home window
             MainContentHome.Content = homeWaitPage;
         }
+
     }
 }

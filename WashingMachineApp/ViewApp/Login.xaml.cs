@@ -37,6 +37,7 @@ namespace WashingMachine
         {
             // Open the Home window
             Home homeWindow = new Home();
+
             homeWindow.Show();
             this.Close(); // Close the Login window
         }

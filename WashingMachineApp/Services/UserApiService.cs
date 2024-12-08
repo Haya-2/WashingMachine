@@ -36,6 +36,23 @@ namespace Washin.App.Services
             return residents;
         }
 
+        // GET: api/user/1/building
+        public async Task<int?> GetBuildingAsync(int userId)
+        {
+            var response = await _httpClient.GetAsync($"api/User/{userId}/building");
+            response.EnsureSuccessStatusCode();
+
+            // Désérialiser le contenu JSON en List<User>
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var buildingId = JsonSerializer.Deserialize<int?>(jsonString, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true
+            });
+
+            return buildingId;
+        }
+
         // GET: api/user/residents/login/pwd
         public async Task<Resident?> GetLoginAsync(string login, string pwd)
         {

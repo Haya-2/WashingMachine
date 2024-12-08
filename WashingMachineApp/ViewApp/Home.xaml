@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WashingMachine"
+        xmlns:local="clr-namespace:WashingMachine.ViewModels"
         mc:Ignorable="d"
         Title="Home" Height="450" Width="500">
     <Window.Background>
@@ -34,7 +34,7 @@
                    FontWeight="Bold" />
 
         <!-- Queue Information -->
-        <TextBlock Text="{Binding PeopleInQueue, StringFormat='There are {0} people before you in the queue'}" 
+        <TextBlock Text="{Binding PeopleBeforeMeInQueue, StringFormat='There are {0} people before you in the queue'}" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
                    Margin="0,120,0,0" 

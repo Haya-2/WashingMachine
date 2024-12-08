@@ -20,11 +20,11 @@ namespace WashingMachine.Views
     public partial class HomeWait : UserControl
     {
         public readonly Home _home;
-        public HomeWait(Home home)
+        public HomeWait(Home home, LaundryViewModel lvm)
         {
             InitializeComponent();
             _home = home;
-            DataContext = App.LaundryViewModel;
+            DataContext = lvm;
         }
         private void Button_Chrono(object sender, RoutedEventArgs e)
         {
@@ -32,8 +32,12 @@ namespace WashingMachine.Views
             _home.MainContentHome.Content = chronoPage;
         }
 
-        private void Button_QuitQueue(object sender, RoutedEventArgs e)
+        private async void Button_QuitQueue(object sender, RoutedEventArgs e)
         {
+            var viewModel = DataContext as LaundryViewModel;
+
+            await viewModel.ExecuteGetOutQueue();
+
             _home.MainContentHome.Content = null;
         }
     }

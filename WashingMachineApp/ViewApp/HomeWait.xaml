@@ -48,7 +48,7 @@
                    VerticalAlignment="Top" >
             <TextBlock.Text>
                 <MultiBinding StringFormat=" {0} person(s) before your turn, around {0} waiting time.">
-                    <Binding Path="PeopleInQueue" />
+                    <Binding Path="PeopleBeforeMeInQueue" />
                     <Binding Path="WaitingTimeEstimate" />
                 </MultiBinding>
             </TextBlock.Text>

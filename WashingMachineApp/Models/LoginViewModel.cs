@@ -76,6 +76,8 @@ public class LoginViewModel
                 return;
             }
 
+            CurrentUser.UserId = user.Id;
+
             // Check if the user is a manager or not
             if (user.IsManager)
             {

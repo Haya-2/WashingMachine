@@ -16,6 +16,15 @@ namespace WashinApi.Controllers
             _context = context;
         }
 
+        // GET: api/user/1/building
+        [HttpGet("{Id}/building")]
+        public ActionResult<int?> GetBuilding(int Id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == Id);
+
+            return user!=null ? user.Id_Building : NotFound();
+        }
+
         // GET: api/user/residents/1
         [HttpGet("residents/{Id_Building}")]
         public ActionResult<IEnumerable<User>> GetResidents(int Id_Building)
@@ -31,7 +40,6 @@ namespace WashinApi.Controllers
         public ActionResult<User> GetLogin(string login, string pwd)
         {
             var user = _context.Users.Where(u => u.Login == login && u.Password == pwd).ToList();
-            Console.WriteLine(user);
             if (user == null || user.Count == 0)
             {
                 return NotFound();

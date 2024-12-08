@@ -4,6 +4,7 @@ using System.Reflection.PortableExecutable;
 using Washin.App.Services;
 using System.Windows.Input;
 using System.Windows;
+using WashingMachine;
 
 /// <summary>
 /// The LaundryViewModel class handles the business logic for managing laundry machines,
@@ -23,12 +24,16 @@ public class LaundryViewModel : INotifyPropertyChanged
     /// </summary>
     private readonly MachineApiService _machineApiService;
     private readonly BuildingApiService _buildingApiService;
+    private readonly UserApiService _userApiService;
     private string _machineState;
     private int _nbMachine, _nbMachineWorking, _nbMachineNotW, _nbPeopleBeforeMeInQueue, _nbMachineAvailable;
     private double _waitingTimeEstimate;
+    public int? CurrentUserId { get; private set; }
     public ObservableCollection<Machine> Machines { get; set; } = new ObservableCollection<Machine>();
 
     private Machine _selectedMachine;
+
+    public ICommand GetInQueueCommand { get; }
     public Machine SelectedMachine
     {
         get => _selectedMachine;
@@ -130,6 +135,10 @@ public class LaundryViewModel : INotifyPropertyChanged
     public LaundryViewModel()
     {
         _machineApiService = new MachineApiService();
+        _buildingApiService = new BuildingApiService();
+        _userApiService = new UserApiService();
+        
+        CurrentUserId = userId;
 
         // Initialize commands
         var changeMachineStateCommand = new RelayCommand(
@@ -137,6 +146,7 @@ public class LaundryViewModel : INotifyPropertyChanged
             () => SelectedMachine != null
         );
         ChangeMachineStateICommand = changeMachineStateCommand;
+        //GetInQueueCommand = new RelayCommandAsync(ExecuteGetInQueue);
 
         // Subscribe to property changes to update command state
         PropertyChanged += (s, e) =>
@@ -175,6 +185,54 @@ public class LaundryViewModel : INotifyPropertyChanged
         }
     }
 
+    private async Task UpdateQueuePositionAsync()
+    {
+        if (CurrentUserId != null)
+        {
+            var building = await _userApiService.GetBuildingAsync(CurrentUserId.Value);
+
+            if (building != null)
+            {
+                var res = await _buildingApiService.GetQueuePositionAsync(building.Value, CurrentUserId.Value);
+                _nbPeopleBeforeMeInQueue = res;
+            }
+            else
+            {
+                _nbPeopleBeforeMeInQueue = 0; // Default to 0 if building is not found
+            }
+        }
+        else
+        {
+            _nbPeopleBeforeMeInQueue = 0; // Default to 0 if CurrentUserId is null
+        }
+
+        OnPropertyChanged(nameof(PeopleBeforeMeInQueue));
+    }
+
+    private async Task UpdateQueuePositionAsync()
+    {
+        if (CurrentUserId != null)
+        {
+            var building = await _userApiService.GetBuildingAsync(CurrentUserId.Value);
+
+            if (building != null)
+            {
+                var res = await _buildingApiService.GetQueuePositionAsync(building.Value, CurrentUserId.Value);
+                _nbPeopleBeforeMeInQueue = res;
+            }
+            else
+            {
+                _nbPeopleBeforeMeInQueue = 0; // Default to 0 if building is not found
+            }
+        }
+        else
+        {
+            _nbPeopleBeforeMeInQueue = 0; // Default to 0 if CurrentUserId is null
+        }
+
+        OnPropertyChanged(nameof(PeopleBeforeMeInQueue));
+    }
+
     /// <summary>
     /// Asynchronously initializes the view model by loading building and machine data from the API.
     /// </summary>
@@ -185,6 +243,80 @@ public class LaundryViewModel : INotifyPropertyChanged
     public async Task InitializeAsync()
     {
         await LoadBuildingDataAsync();
+        await UpdateQueuePositionAsync();
+    }
+
+    public async Task ExecuteGetInQueue()
+    {
+        
+        if (CurrentUserId.HasValue)
+        {
+            try
+            {
+                // Add the user to the queue
+                var building = await _userApiService.GetBuildingAsync(CurrentUserId.Value);
+
+                if (building != null)
+                {
+                    await _buildingApiService.AddToQueueAsync(building.Value, CurrentUserId.Value);
+
+                    // Get the updated queue position
+                    var position = await _buildingApiService.GetQueuePositionAsync(building.Value, CurrentUserId.Value);
+                    PeopleBeforeMeInQueue = position-1;
+                    OnPropertyChanged(nameof(PeopleBeforeMeInQueue));
+
+                }
+                else
+                {
+                    MessageBox.Show("Building not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+        }
+        else
+        {
+            MessageBox.Show("No user is logged in.");
+        }
+        
+    }
+
+    public async Task ExecuteGetOutQueue()
+    {
+
+        if (CurrentUserId.HasValue)
+        {
+            try
+            {
+                // Add the user to the queue
+                var building = await _userApiService.GetBuildingAsync(CurrentUserId.Value);
+
+                if (building != null)
+                {
+                    var queue = await _buildingApiService.GetQueueAsync(building.Value);
+                    var size_queue = queue?.Count ?? 0;
+
+                    PeopleBeforeMeInQueue = size_queue;
+                    OnPropertyChanged(nameof(PeopleBeforeMeInQueue));
+
+                }
+                else
+                {
+                    MessageBox.Show("Building not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+        }
+        else
+        {
+            MessageBox.Show("No user is logged in.");
+        }
+
     }
 
     private async Task LoadBuildingDataAsync()
