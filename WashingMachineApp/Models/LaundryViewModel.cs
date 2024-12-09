@@ -132,7 +132,7 @@ public class LaundryViewModel : INotifyPropertyChanged
     /// Initializes a new instance of the <see cref="LaundryViewModel"/> class.
     /// Sets up command bindings and subscribes to property change notifications.
     /// </summary>
-    public LaundryViewModel()
+    public LaundryViewModel(int? userId)
     {
         _machineApiService = new MachineApiService();
         _buildingApiService = new BuildingApiService();
@@ -183,30 +183,6 @@ public class LaundryViewModel : INotifyPropertyChanged
         {
             Console.WriteLine($"Error changing machine state: {ex.Message}");
         }
-    }
-
-    private async Task UpdateQueuePositionAsync()
-    {
-        if (CurrentUserId != null)
-        {
-            var building = await _userApiService.GetBuildingAsync(CurrentUserId.Value);
-
-            if (building != null)
-            {
-                var res = await _buildingApiService.GetQueuePositionAsync(building.Value, CurrentUserId.Value);
-                _nbPeopleBeforeMeInQueue = res;
-            }
-            else
-            {
-                _nbPeopleBeforeMeInQueue = 0; // Default to 0 if building is not found
-            }
-        }
-        else
-        {
-            _nbPeopleBeforeMeInQueue = 0; // Default to 0 if CurrentUserId is null
-        }
-
-        OnPropertyChanged(nameof(PeopleBeforeMeInQueue));
     }
 
     private async Task UpdateQueuePositionAsync()

@@ -1,15 +1,7 @@
 [
   {
     "Id_Building": 1,
-    "Queue": [5]
-  },
-  {
-    "Id_Building": 1,
-    "Queue": [6]
-  },
-  {
-    "Id_Building": 1,
-    "Queue": [7]
+    "Queue": [5,6,7]
   },
   {
     "Id_Building": 2,
